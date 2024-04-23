@@ -1,0 +1,25 @@
+mat-toolbar {
+  background-color: #2196F3; /* Blue */
+  color: white;
+}
+
+.supplier-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+mat-card {
+  width: 300px;
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+mat-card-title {
+  color: #673AB7; /* Deep Purple */
+}
+
+p {
+  color: #757575; /* Grey */
+}

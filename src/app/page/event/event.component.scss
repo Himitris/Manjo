@@ -1,0 +1,26 @@
+
+mat-card {
+  height: 65vh;
+  margin: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+mat-card-title {
+  color: #673ab7; /* Couleur profonde pour le titre */
+}
+
+h3 {
+  color: #3f51b5; /* Indigo pour les titres d'événements */
+  margin-bottom: 0; /* Réduction de l'espace sous le titre */
+}
+
+p {
+  color: #757575; /* Gris pour les descriptions */
+  margin-top: 4px; /* Petit espace après les titres pour la clarté */
+}
+
+mat-list-item {
+  border-bottom: 1px solid #eee; /* Ligne de séparation subtile entre les éléments */
+  padding-bottom: 10px; /* Espace sous chaque élément de liste */
+  margin-bottom: 10px; /* Espace entre les éléments */
+}

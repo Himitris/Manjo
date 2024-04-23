@@ -1,0 +1,55 @@
+.button-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/bg.png');
+    background-size: cover; /* Pour couvrir toute la zone du conteneur */
+    background-position: center;
+
+    h1{
+        font-size: 68px;
+        font-family: 'Poppins', sans-serif;
+    }
+
+     h1:hover{
+        border-style: solid;
+        border-width: 2px;
+        border-radius: 20px;
+        box-shadow: 2px 2px 16px 0px #000000;
+    }
+}
+
+.button-container button {
+    box-shadow: 2px 2px 16px 0px #000000;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 120px;
+    height: 40px;
+    margin-top: -20px; /* Half of button height */
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.button-container button:hover {
+    box-shadow: 4px 4px 24px 0px #000000; /* Effet différent sur le survol */
+    width: 140px; /* Augmente la largeur au survol */
+    height: 50px; /* Augmente la hauteur au survol */
+}
+
+.button-circle {
+    padding: 10px 20px;
+    border-radius: 50%; /* Ceci rend le bouton circulaire */
+    border: none;
+    background-color: #4CAF50; /* Choisis ta couleur */
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+

@@ -1,0 +1,26 @@
+mat-toolbar {
+    background-color: #2196F3; /* Bleu pour la barre d'outils */
+    color: white;
+}
+
+.content-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+mat-card {
+    width: 90%;
+    max-width: 800px; /* Ajuste ceci selon la largeur désirée */
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+mat-card-content {
+    font-size: 16px;
+    line-height: 1.6; /* Amélioration de la lisibilité */
+}
+
+h1 {
+    color: #673AB7; /* Couleur pour le titre principal */
+}

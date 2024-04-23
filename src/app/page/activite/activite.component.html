@@ -1,0 +1,15 @@
+<mat-toolbar color="primary">
+    <span>Activités Aux Alentours</span>
+</mat-toolbar>
+
+<div class="activities-grid">
+    <div *ngFor="let activity of activities" class="activity-card">
+        <mat-card>
+            <mat-icon class="activity-icon">{{ activity.icon }}</mat-icon>
+            <mat-card-title>{{ activity.name }}</mat-card-title>
+            <mat-card-content>
+                {{ activity.description }}
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

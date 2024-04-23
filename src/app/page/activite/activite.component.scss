@@ -1,0 +1,42 @@
+mat-toolbar {
+  background-color: #2196F3; /* Blue */
+  color: white;
+}
+
+.activities-grid {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  gap: 20px;
+  padding: 20px;
+}
+
+.activity-card {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+mat-card {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease-in-out;
+}
+
+mat-card:hover {
+  transform: scale(1.05);
+}
+
+.activity-icon {
+  margin: auto;
+  display: block;
+}
+
+mat-card-title {
+  text-align: center;
+  color: #3F51B5; /* Indigo */
+}
+
+mat-card-content {
+  font-size: 14px;
+  color: #757575; /* Grey */
+  text-align: center;
+}

@@ -1,0 +1,19 @@
+<mat-toolbar color="primary">
+    <span>Fournisseurs de la Guinguette</span>
+</mat-toolbar>
+
+<div class="supplier-container">
+    <mat-card *ngFor="let supplier of suppliers">
+        <mat-card-header>
+            <mat-card-title>{{ supplier.name }}</mat-card-title>
+            <mat-card-subtitle>{{ supplier.type }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <p><strong>Contact:</strong> {{ supplier.contact }}</p>
+            <p><strong>Email:</strong> {{ supplier.email }}</p>
+            <p><strong>Téléphone:</strong> {{ supplier.phone }}</p>
+            <p><strong>Adresse:</strong> {{ supplier.address }}</p>
+            <p><strong>Description:</strong> {{ supplier.description }}</p>
+        </mat-card-content>
+    </mat-card>
+</div>
