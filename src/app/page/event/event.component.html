@@ -2,30 +2,20 @@
     <span>Événements à la Guinguette</span>
 </mat-toolbar>
 
-<mat-card>
+<mat-card class="event-card">
     <mat-card-header>
         <mat-card-title>Prochains Événements</mat-card-title>
     </mat-card-header>
     <mat-card-content>
         <mat-list>
-            <mat-list-item>
-                <h3>Le vendredi 28 juin</h3>
-                <p>Karaoké soirée</p>
-            </mat-list-item>
-            <mat-list-item>
-                <h3>Le vendredi 5 juillet</h3>
-                <p>Karaoké soirée</p>
-            </mat-list-item>
-            <mat-list-item>
-                <h3>Le samedi 27 juillet</h3>
-                <p>Cours de salsa (débutant à avancé)</p>
-                <p>Concert salsa live</p>
-            </mat-list-item>
-            <mat-list-item>
-                <h3>Le samedi 17 août</h3>
-                <p>Cours de salsa (débutant et avancé)</p>
-                <p>Concert salsa live</p>
-            </mat-list-item>
+            <ng-container *ngFor="let event of events">
+                <mat-list-item>
+                    <div class="event-info">
+                        <h3>{{ event.date }}</h3>
+                        <p>{{ event.description }}</p>
+                    </div>
+                </mat-list-item>
+            </ng-container>
         </mat-list>
     </mat-card-content>
 </mat-card>

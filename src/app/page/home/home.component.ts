@@ -1,5 +1,5 @@
 import { Component, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FournisseurComponent } from '../fournisseur/fournisseur.component';
 import { RestaurantComponent } from '../restaurant/restaurant.component';
 import { EventComponent } from '../event/event.component';
@@ -26,40 +26,58 @@ export class HomeComponent implements AfterViewInit {
     const buttons =
       this.buttonContainer.nativeElement.querySelectorAll('button');
     const totalButtons = buttons.length;
-    const radius =
-      this.screenWidth < 450 ? 100 : this.screenWidth < 800 ? 150 : 350; // Adjust the radius as per your need
-    const angleIncrement = (2 * Math.PI) / totalButtons;
 
-    gsap.registerPlugin(CSSPlugin); // Enregistrement du plugin
+    if (this.screenWidth < 500) {
+      // Si l'écran est petit, placer les boutons légèrement à gauche et à droite et faire bouger les boutons
+      buttons.forEach((button: any, index: any) => {
+        const xOffset = index % 2 === 0 ? -50 : 50; // Décalage horizontal de -50 pour les boutons pairs et 50 pour les impairs
+        const yOffset = index * 50; // Décalage vertical
+        gsap.set(button, { x: xOffset, y: yOffset });
 
-    // Initial animation to set the buttons in a circular layout
-    for (let i = 0; i < totalButtons; i++) {
-      const button = buttons[i];
-      const angle = i * angleIncrement;
-      const x = Math.cos(angle) * radius;
-      const y = Math.sin(angle) * radius;
-      gsap.set(button, { x, y });
-    }
+        // Animation pour faire bouger légèrement les boutons autour de leur position initiale
+        gsap.to(button, {
+          duration: 1,
+          repeat: -1,
+          yoyo: true,
+          x: `+=${Math.random() * 20 - 10}`, // Décalage horizontal aléatoire entre -10 et 10
+          y: `+=${Math.random() * 20 - 10}`, // Décalage vertical aléatoire entre -10 et 10
+          ease: 'power1.inOut',
+        });
 
-    // Animation to make buttons move slightly around their initial position
-    buttons.forEach((button: any, index: any) => {
-      const xOffset = Math.random() * 20 - 10; // Random horizontal offset
-      const yOffset = Math.random() * 20 - 10; // Random vertical offset
-      gsap.to(button, {
-        duration: 1,
-        repeat: -1,
-        yoyo: true,
-        x: `+=${xOffset}`,
-        y: `+=${yOffset}`,
-        ease: 'power1.inOut',
-        delay: index * 0.1, // Add delay for staggered animation
       });
-    });
+    } else {
+      // Sinon, placer les boutons en cercle comme précédemment
+      const radius =
+        this.screenWidth < 450 ? 100 : this.screenWidth < 800 ? 150 : 350; // Ajuster le rayon selon vos besoins
+      const angleIncrement = (2 * Math.PI) / totalButtons;
+
+      // Disposition circulaire initiale des boutons
+      for (let i = 0; i < totalButtons; i++) {
+        const button = buttons[i];
+        const angle = i * angleIncrement;
+        const x = Math.cos(angle) * radius;
+        const y = Math.sin(angle) * radius;
+        gsap.set(button, { x, y });
+      }
+
+      // Animation pour faire bouger légèrement les boutons autour de leur position initiale
+      buttons.forEach((button: any, index: any) => {
+        gsap.to(button, {
+          duration: 1,
+          repeat: -1,
+          yoyo: true,
+          x: `+=${Math.random() * 20 - 10}`, // Décalage horizontal aléatoire
+          y: `+=${Math.random() * 20 - 10}`, // Décalage vertical aléatoire
+          ease: 'power1.inOut',
+          delay: index * 0.1, // Ajouter un délai pour une animation échelonnée
+        });
+      });
+    }
   }
 
   openFournisseurDialog() {
     this.dialog.open(FournisseurComponent, {
-      width: '60%',
+      width: this.screenWidth > 800 ? '60%' : '90%',
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '200ms',
     });
@@ -67,7 +85,7 @@ export class HomeComponent implements AfterViewInit {
 
   openRestaurantDialog() {
     this.dialog.open(RestaurantComponent, {
-      width: '60%',
+      width: this.screenWidth > 800 ? '60%' : '90%',
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '200ms',
     });
@@ -75,7 +93,7 @@ export class HomeComponent implements AfterViewInit {
 
   openAvisDialog() {
     this.dialog.open(AvisComponent, {
-      width: '60%',
+      width: this.screenWidth > 800 ? '60%' : '90%',
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '200ms',
     });
@@ -83,7 +101,7 @@ export class HomeComponent implements AfterViewInit {
 
   openActiviteDialog() {
     this.dialog.open(ActiviteComponent, {
-      width: '60%',
+      width: this.screenWidth > 800 ? '60%' : '90%',
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '200ms',
     });
@@ -91,7 +109,7 @@ export class HomeComponent implements AfterViewInit {
 
   openEventDialog() {
     this.dialog.open(EventComponent, {
-      width: '60%',
+      width: this.screenWidth > 800 ? '40%' : '90%',
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '200ms',
     });
@@ -99,7 +117,7 @@ export class HomeComponent implements AfterViewInit {
 
   openCarteDialog() {
     this.dialog.open(CarteComponent, {
-      width: '60%',
+      width: this.screenWidth > 800 ? '60%' : '90%',
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '200ms',
     });
@@ -107,7 +125,7 @@ export class HomeComponent implements AfterViewInit {
 
   openPayerDialog() {
     this.dialog.open(PayerComponent, {
-      width: '60%',
+      width: this.screenWidth > 800 ? '60%' : '90%',
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '200ms',
     });
@@ -115,7 +133,7 @@ export class HomeComponent implements AfterViewInit {
 
   openManjocarnDialog() {
     this.dialog.open(ManjocarnComponent, {
-      width: '60%',
+      width: this.screenWidth > 800 ? '60%' : '90%',
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '200ms',
     });

@@ -1,5 +1,6 @@
 /* Style de la barre d'outils */
-mat-toolbar { /* Couleur bleue primaire */
+mat-toolbar {
+  /* Couleur bleue primaire */
   color: white;
   padding: 10px 20px;
   font-size: 20px;
@@ -66,4 +67,20 @@ p {
 /* Diviseur entre les éléments de la liste */
 mat-divider {
   border-top: 1px solid #ccc;
+}
+
+@media screen and (max-width: 700px) {
+  .menu-container {
+    grid-template-columns: repeat(1, 1fr);
+    padding: 0px;
+  }
+  h3 {
+    font-size: 13px;
+  }
+  mat-card-content {
+    padding: 0px;
+  }
+  p {
+    font-size: 11px;
+  }
 }
