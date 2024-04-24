@@ -1,5 +1,8 @@
 <mat-toolbar color="primary">
     <span>Avis</span>
+    <button mat-icon-button mat-dialog-close aria-label="Close dialog">
+        <mat-icon>close</mat-icon>
+    </button>
 </mat-toolbar>
 <mat-card>
     <mat-card-header>
@@ -8,7 +11,6 @@
     <mat-card-content>
         <mat-card *ngFor="let avis of avisList" class="avis-card">
             <mat-card-header>
-                <div mat-card-avatar class="example-header-image"></div>
                 <mat-card-title>{{ avis.nom }}</mat-card-title>
                 <mat-card-subtitle>{{ avis.date | date }}</mat-card-subtitle>
             </mat-card-header>

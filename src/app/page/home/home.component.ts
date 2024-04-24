@@ -1,4 +1,4 @@
-import { Component, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, AfterViewInit, ViewChild, HostListener } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FournisseurComponent } from '../fournisseur/fournisseur.component';
 import { RestaurantComponent } from '../restaurant/restaurant.component';
@@ -22,12 +22,27 @@ export class HomeComponent implements AfterViewInit {
   constructor(public dialog: MatDialog) {}
 
   ngAfterViewInit() {
+    this.updateScreenWidth();
+    this.adjustButtonsPosition();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.updateScreenWidth();
+    this.adjustButtonsPosition();
+  }
+
+  updateScreenWidth() {
     this.screenWidth = window.innerWidth;
+  }
+
+  adjustButtonsPosition() {
+    // Votre code pour ajuster la position des boutons en fonction de la largeur de l'écran
     const buttons =
       this.buttonContainer.nativeElement.querySelectorAll('button');
     const totalButtons = buttons.length;
 
-    if (this.screenWidth < 500) {
+    if (this.screenWidth < 300) {
       // Si l'écran est petit, placer les boutons légèrement à gauche et à droite et faire bouger les boutons
       buttons.forEach((button: any, index: any) => {
         const xOffset = index % 2 === 0 ? -50 : 50; // Décalage horizontal de -50 pour les boutons pairs et 50 pour les impairs
@@ -43,12 +58,11 @@ export class HomeComponent implements AfterViewInit {
           y: `+=${Math.random() * 20 - 10}`, // Décalage vertical aléatoire entre -10 et 10
           ease: 'power1.inOut',
         });
-
       });
     } else {
       // Sinon, placer les boutons en cercle comme précédemment
-      const radius =
-        this.screenWidth < 450 ? 100 : this.screenWidth < 800 ? 150 : 350; // Ajuster le rayon selon vos besoins
+      const percentage = this.screenWidth < 450 ? 32: this.screenWidth < 950 ? 25 : 21;
+      const radius = (this.screenWidth * percentage) / 100;
       const angleIncrement = (2 * Math.PI) / totalButtons;
 
       // Disposition circulaire initiale des boutons
@@ -117,7 +131,7 @@ export class HomeComponent implements AfterViewInit {
 
   openCarteDialog() {
     this.dialog.open(CarteComponent, {
-      width: this.screenWidth > 800 ? '60%' : '90%',
+      width: this.screenWidth > 1500 ? '60%' : '98%',
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '200ms',
     });

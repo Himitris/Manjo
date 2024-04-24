@@ -1,17 +1,8 @@
-/* Style de la barre d'outils */
-mat-toolbar {
-  /* Couleur bleue primaire */
-  color: white;
-  padding: 10px 20px;
-  font-size: 20px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-}
 
 /* Conteneur principal pour les cartes */
 .menu-container {
   max-height: 80vh;
   width: 96%;
-  overflow-y: auto;
   margin: auto;
   background: white;
   border-radius: 8px;
@@ -21,9 +12,12 @@ mat-toolbar {
   gap: 20px;
 }
 
+
+
 /* Style des cartes */
 mat-card {
   background: white;
+  padding: 5px;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
@@ -49,8 +43,7 @@ mat-card-content {
   color: #666;
 }
 
-/* Style de la liste */
-mat-list-item {
+.element {
   margin-bottom: 12px;
 }
 
@@ -63,24 +56,21 @@ p {
   margin: 0;
   font-size: 14px;
 }
-
-/* Diviseur entre les éléments de la liste */
-mat-divider {
-  border-top: 1px solid #ccc;
+@media screen and (max-width: 600px) {
+  p {
+    font-size: 12px;
+  }
+  h3 {
+    font-size: 14px;
+  }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 1180px) {
   .menu-container {
     grid-template-columns: repeat(1, 1fr);
     padding: 0px;
   }
-  h3 {
-    font-size: 13px;
-  }
   mat-card-content {
     padding: 0px;
-  }
-  p {
-    font-size: 11px;
   }
 }

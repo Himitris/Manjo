@@ -1,11 +1,11 @@
-:host {
-    display: block;
-    padding: 20px;
-}
 
 .avis-dialog {
     max-height: 600px;
     overflow-y: auto;
+}
+
+mat-toolbar{
+  justify-content: space-between;
 }
 
 .avis-card {

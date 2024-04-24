@@ -7,6 +7,12 @@
   max-height: 700px; /* ou la hauteur que vous souhaitez */
 }
 
+
+mat-toolbar{
+  justify-content: space-between;
+}
+
+
 mat-card {
   margin: 10px;
   width: 90%;
@@ -15,20 +21,35 @@ mat-card {
 .photo-gallery img {
   width: 100%;
   height: auto;
-  max-width: 300px;
-  margin: 10px;
   border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
 }
 
 .photo-gallery img:hover {
-    transform: scale(1.4); /* agrandir l'image au survol */
+  transform: scale(1.4); /* agrandir l'image au survol */
 }
 
 .photo-gallery {
-    display: grid;
-    grid-template-columns: 33% 33% 33%;
-    gap: 10px;
-    align-items: center;
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  gap: 10px;
+  align-items: center;
+}
+@media screen and (max-width: 430px) {
+  span {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .photo-gallery {
+    grid-template-columns: 50% 50%;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .photo-gallery {
+    grid-template-columns: 100%;
+  }
 }

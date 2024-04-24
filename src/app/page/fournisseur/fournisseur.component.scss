@@ -3,18 +3,26 @@
   flex-wrap: wrap;
   justify-content: space-around;
   padding: 20px;
+  overflow: auto;
+  max-height: 700px;
+}
+
+mat-toolbar{
+  justify-content: space-between;
 }
 
 mat-card {
   width: 300px;
   margin: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 mat-card-title {
-  color: #673AB7; /* Deep Purple */
+  color: #248627bd; /* Deep Purple */
 }
 
-p {
-  color: #757575; /* Grey */
+@media screen and (max-width: 400px) {
+  span {
+    font-size: 16px;
+  }
 }

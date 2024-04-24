@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 
 interface MenuItem {
   name: string;
@@ -13,6 +13,25 @@ interface MenuItem {
   styleUrl: './carte.component.scss',
 })
 export class CarteComponent {
+  screenWidth!: number;
+
+  ngOnInit() {
+    this.screenWidth = window.innerWidth;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.screenWidth = event.target.innerWidth;
+  }
+
+  public get menuTypes(): string[] {
+    return [...new Set(this.menuItems.map((item) => item.type))];
+  }
+
+  public filteredMenu(type: string): MenuItem[] {
+    return this.menuItems.filter((item) => item.type === type);
+  }
+
   public menuItems: MenuItem[] = [
     {
       name: 'Frites',
@@ -165,12 +184,4 @@ export class CarteComponent {
       type: 'Dessert',
     },
   ];
-
-  public get menuTypes(): string[] {
-    return [...new Set(this.menuItems.map((item) => item.type))];
-  }
-
-  public filteredMenu(type: string): MenuItem[] {
-    return this.menuItems.filter((item) => item.type === type);
-  }
 }

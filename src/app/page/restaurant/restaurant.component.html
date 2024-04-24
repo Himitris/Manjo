@@ -1,5 +1,8 @@
 <mat-toolbar color="primary">
     <span>Le Restaurant de la Guinguette</span>
+    <button mat-icon-button mat-dialog-close aria-label="Close dialog">
+        <mat-icon>close</mat-icon>
+    </button>
 </mat-toolbar>
 
 <div class="restaurant-info">
@@ -20,18 +23,9 @@
         </mat-card-header>
         <mat-card-content>
             <div class="photo-gallery">
-                <img src="../assets/photo/01.jpg" alt="Photo du restaurant">
-                <img src="../assets/photo/02.jpg" alt="Photo du restaurant">
-                <img src="../assets/photo/03.jpg" alt="Photo du restaurant">
-                <img src="../assets/photo/04.jpg" alt="Photo du restaurant">
-                <img src="../assets/photo/05.jpg" alt="Photo du restaurant">
-                <img src="../assets/photo/06.jpg" alt="Photo du restaurant">
-                <img src="../assets/photo/07.jpg" alt="Photo du restaurant">
-                <img src="../assets/photo/08.jpg" alt="Photo du restaurant">
-                <img src="../assets/photo/09.jpg" alt="Photo du restaurant">
-                <img src="../assets/photo/10.jpg" alt="Photo du restaurant">
-                <img src="../assets/photo/11.jpg" alt="Photo du restaurant">
-                <img src="../assets/photo/12.jpg" alt="Photo du restaurant">
+            <ng-container *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]">
+                <img [src]="'../assets/photo/' + i + '.jpg'" [alt]="'Manjocarn ' + i">
+            </ng-container>
             </div>
         </mat-card-content>
     </mat-card>

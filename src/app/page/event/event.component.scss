@@ -5,9 +5,12 @@
   margin: 20px auto; /* Centrer la carte horizontalement et donner de l'espace autour */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+mat-toolbar{
+  justify-content: space-between;
+}
 
 mat-card-title {
-  color: #673ab7; /* Couleur profonde pour le titre */
+  color: #248627bd; /* Couleur profonde pour le titre */
 }
 
 .event-info {
@@ -30,4 +33,10 @@ mat-list-item {
 
 mat-list-item:last-child {
   border-bottom: none; /* Supprimer la bordure de fond pour le dernier élément */
+}
+
+@media screen and (max-width:400px) {
+  span {
+    font-size: 16px;
+  }
 }

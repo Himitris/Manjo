@@ -1,11 +1,13 @@
 <div class="button-container" #buttonContainer>
-    <a (click)="openManjocarnDialog()"><h1>Manjocarn</h1></a>
-    <button mat-flat-button class="button-spiky" color="primary" (click)="openFournisseurDialog()">Fournisseur</button>
+    <a (click)="openManjocarnDialog()">
+        <h1>Manjocarn</h1>
+    </a>
+    <button mat-flat-button class="button-circle" color="primary" (click)="openManjocarnDialog()">Manjocarn</button>
     <button mat-flat-button class="button-circle" color="primary" (click)="openRestaurantDialog()">Restaurant</button>
-    <button mat-flat-button class="button-diamond" color="primary" (click)="openAvisDialog()">Avis</button>
-    <button mat-flat-button class="button-circle" color="primary" (click)="openActiviteDialog()">Activitées</button>
+    <button mat-flat-button class="button-circle" color="primary" (click)="openFournisseurDialog()">Fournisseur</button>
     <button mat-flat-button class="button-circle" color="primary" (click)="openEventDialog()">Evenement</button>
-    <button mat-flat-button class="button-heart" color="primary" (click)="openCarteDialog()">Carte</button>
-    <button mat-flat-button class="button-heart" color="primary" (click)="openManjocarnDialog()">Manjocarn</button>
-    <button mat-flat-button class="button-" color="primary" (click)="openPayerDialog()">Réserver et payer</button>
+    <button mat-flat-button class="button-circle" color="primary" (click)="openCarteDialog()">Carte</button>
+    <button mat-flat-button class="button-circle" color="primary" (click)="openAvisDialog()">Avis</button>
+    <button mat-flat-button class="button-circle" color="primary" (click)="openPayerDialog()">Réserver et payer</button>
+    <button mat-flat-button class="button-circle" color="primary" (click)="openActiviteDialog()">Activitées</button>
 </div>
