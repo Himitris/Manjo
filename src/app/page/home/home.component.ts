@@ -61,7 +61,7 @@ export class HomeComponent implements AfterViewInit {
       });
     } else {
       // Sinon, placer les boutons en cercle comme précédemment
-      const percentage = this.screenWidth < 450 ? 32: this.screenWidth < 950 ? 25 : 21;
+      const percentage = this.screenWidth < 450 ? 32: this.screenWidth < 700 ? 25 : 21;
       const radius = (this.screenWidth * percentage) / 100;
       const angleIncrement = (2 * Math.PI) / totalButtons;
 

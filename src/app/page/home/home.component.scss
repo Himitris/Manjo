@@ -9,12 +9,15 @@
   background-size: cover; /* Pour couvrir toute la zone du conteneur */
   background-position: center;
 
+  img{
+    width: 150px
+  }
+
   h1 {
     
     color: white;
     -webkit-text-stroke: 1px black; /* Contour noir */
-    text-stroke: 1px black;
-    font-size: 68px;
+    font-size: 62px;
     font-family: "Abril Fatface", serif;
     transition: box-shadow 0.3s ease, transform 0.3s ease, font-size 0.3s ease;
   }
@@ -62,7 +65,6 @@
 @media screen and (max-width: 500px) {
   .button-container {
     h1 {
-      margin-top: 50% !important;
       font-size: 58px;
     }
   }
@@ -70,7 +72,6 @@
 @media screen and (max-width: 400px) {
   .button-container {
     h1 {
-      margin-top: 60% !important;
       font-size: 50px;
     }
   }
@@ -81,7 +82,7 @@
     justify-content: start;
 
     h1 {
-      margin-top: 15%;
+      margin-top: 0px;
     }
   }
 }
