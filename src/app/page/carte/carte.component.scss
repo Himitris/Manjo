@@ -12,7 +12,9 @@
   gap: 20px;
 }
 
-
+mat-toolbar{
+  justify-content: space-between;
+}
 
 /* Style des cartes */
 mat-card {
