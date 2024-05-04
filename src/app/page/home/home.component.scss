@@ -9,12 +9,15 @@
   background-size: cover; /* Pour couvrir toute la zone du conteneur */
   background-position: center;
 
-  img{
-    width: 150px
+  img {
+    width: 150px;
+    transition: width 0.3s ease;
   }
+  img:hover {
+  width: 170px; /* Nouvelle taille de l'image au survol */
+}
 
   h1 {
-    
     color: white;
     -webkit-text-stroke: 1px black; /* Contour noir */
     font-size: 62px;
@@ -49,41 +52,83 @@
   font-size: 20px;
 }
 
-.button-circle {
-  padding: 5px 10px;
-  border-radius: 50%; /* Ceci rend le bouton circulaire */
+.button {
+  background-image: linear-gradient(to right, #248627bd, #82c785);
   border: none;
-  background-color: #4caf50; /* Choisis ta couleur */
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
+  border-radius: 5px;
+  padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
 }
 
-@media screen and (max-width: 500px) {
+.button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300%;
+  height: 300%;
+  background-color: rgba(255, 255, 255, 0.2); /* Couleur de l'ombre */
+  border-radius: 50%;
+  transition: transform 0.3s;
+  z-index: -1;
+}
+
+.button:hover::before {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+@media screen and (max-width: 920px), screen and (max-height: 800px) {
   .button-container {
+    position: relative;
     h1 {
-      font-size: 58px;
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-bottom: 20px; /* Ajout de "px" pour la marge */
     }
   }
 }
+
+@media screen and (max-width: 620px) {
+  .button-container {
+    position: relative;
+    img {
+      position: fixed;
+      top: 0;
+    }
+  }
+}
+
 @media screen and (max-width: 400px) {
   .button-container {
+    height: 100%;
     h1 {
       font-size: 50px;
     }
   }
 }
 
-@media screen and (max-width: 920px) {
-  .button-container {
-    justify-content: start;
-
-    h1 {
-      margin-top: 0px;
-    }
+@media screen and (max-width: 500px), (max-height: 620px) {
+  .button-container img {
+    width: 100px; /* Regroupement de styles pour les images */
   }
 }
+
+@media screen and (max-height: 520px) {
+  .button-container img {
+    width: 80px; /* Réduction de la largeur des images pour les écrans plus petits */
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .button-container h1 {
+    font-size: 58px; /* Modification de la taille du titre pour les écrans plus petits */
+  }
+}
+
+
 

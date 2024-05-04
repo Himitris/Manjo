@@ -1,4 +1,10 @@
-import { Component, ElementRef, AfterViewInit, ViewChild, HostListener } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  AfterViewInit,
+  ViewChild,
+  HostListener,
+} from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FournisseurComponent } from '../fournisseur/fournisseur.component';
 import { RestaurantComponent } from '../restaurant/restaurant.component';
@@ -8,7 +14,6 @@ import { PayerComponent } from '../payer/payer.component';
 import { AvisComponent } from '../avis/avis.component';
 import { ActiviteComponent } from '../activite/activite.component';
 import gsap from 'gsap';
-import { CSSPlugin } from 'gsap/CSSPlugin';
 import { ManjocarnComponent } from '../manjocarn/manjocarn.component';
 
 @Component({
@@ -54,14 +59,15 @@ export class HomeComponent implements AfterViewInit {
           duration: 1,
           repeat: -1,
           yoyo: true,
-          x: `+=${Math.random() * 20 - 10}`, // Décalage horizontal aléatoire entre -10 et 10
-          y: `+=${Math.random() * 20 - 10}`, // Décalage vertical aléatoire entre -10 et 10
+          x: `+=${Math.random() * 3}`, // Décalage horizontal aléatoire entre -10 et 10
+          y: `+=${Math.random() * 3}`, // Décalage vertical aléatoire entre -10 et 10
           ease: 'power1.inOut',
         });
       });
     } else {
       // Sinon, placer les boutons en cercle comme précédemment
-      const percentage = this.screenWidth < 450 ? 32: this.screenWidth < 700 ? 25 : 21;
+      const percentage =
+        this.screenWidth < 450 ? 32 : this.screenWidth < 700 ? 25 : 21;
       const radius = (this.screenWidth * percentage) / 100;
       const angleIncrement = (2 * Math.PI) / totalButtons;
 
@@ -80,8 +86,8 @@ export class HomeComponent implements AfterViewInit {
           duration: 1,
           repeat: -1,
           yoyo: true,
-          x: `+=${Math.random() * 20 - 10}`, // Décalage horizontal aléatoire
-          y: `+=${Math.random() * 20 - 10}`, // Décalage vertical aléatoire
+          x: `+=${Math.random() * 3 }`, // Décalage horizontal aléatoire
+          y: `+=${Math.random() * 3 }`, // Décalage vertical aléatoire
           ease: 'power1.inOut',
           delay: index * 0.1, // Ajouter un délai pour une animation échelonnée
         });
