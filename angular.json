@@ -32,10 +32,7 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.png",
-              "src/assets"
-            ],
+            "assets": ["src/favicon.png", "src/assets", "src/admin"],
             "styles": [
               "src/styles.scss"
             ],
