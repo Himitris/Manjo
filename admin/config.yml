@@ -1,0 +1,17 @@
+backend:
+  name: git-gateway
+  branch: main # Remplacez par la branche principale de votre dépôt GitHub
+
+media_folder: "src/assets/uploads" # Dossier où seront stockés les fichiers média
+public_folder: "/assets/uploads"
+
+collections:
+  - name: "blog" # Nom de la collection
+    label: "Blog"
+    folder: "src/posts" # Dossier où seront stockés les fichiers markdown
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Body", name: "body", widget: "markdown" }
