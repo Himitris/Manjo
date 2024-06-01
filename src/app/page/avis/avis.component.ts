@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { SettingsService } from '../../services/settings.service';
 
 @Component({
   selector: 'app-avis',
   templateUrl: './avis.component.html',
-  styleUrl: './avis.component.scss',
+  styleUrls: ['./avis.component.scss'],
 })
-export class AvisComponent {
+export class AvisComponent implements OnInit {
   avisList = [
     {
       nom: 'John Doe',
@@ -23,4 +24,14 @@ export class AvisComponent {
       commentaire: "J'ai adoré les plats végétariens disponibles.",
     },
   ];
+
+  avisTitle = 'Avis des Clients';
+
+  constructor(private settingsService: SettingsService) {}
+
+  ngOnInit() {
+    this.settingsService.getGeneralSettings().subscribe((settings) => {
+      this.avisTitle = settings.avis_title;
+    });
+  }
 }

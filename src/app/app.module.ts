@@ -19,6 +19,7 @@ import { ActiviteComponent } from './page/activite/activite.component';
 import { MatIconModule } from '@angular/material/icon';
 import { ManjocarnComponent } from './page/manjocarn/manjocarn.component';
 import { CarteComponent } from './page/carte/carte.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { CarteComponent } from './page/carte/carte.component';
     MatCardModule,
     MatListModule,
     MatIconModule,
+    HttpClientModule,
   ],
   providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent],

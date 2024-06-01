@@ -15,3 +15,11 @@ collections:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Publish Date", name: "date", widget: "datetime" }
       - { label: "Body", name: "body", widget: "markdown" }
+  - name: "settings"
+    label: "Settings"
+    files:
+      - name: "general"
+        label: "General"
+        file: "src/general.json"
+        fields:
+          - { label: "Avis Title", name: "avis_title", widget: "string" }
