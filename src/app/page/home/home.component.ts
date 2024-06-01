@@ -81,24 +81,24 @@ export class HomeComponent implements AfterViewInit {
       }
 
       // Animation pour faire bouger légèrement les boutons autour de leur position initiale
-      buttons.forEach((button: any, index: any) => {
-        gsap.to(button, {
-          duration: 1,
-          repeat: -1,
-          yoyo: true,
-          x: `+=${Math.random() * 3 }`, // Décalage horizontal aléatoire
-          y: `+=${Math.random() * 3 }`, // Décalage vertical aléatoire
-          ease: 'power1.inOut',
-          delay: index * 0.1, // Ajouter un délai pour une animation échelonnée
-        });
-      });
+      // buttons.forEach((button: any, index: any) => {
+      //   gsap.to(button, {
+      //     duration: 1,
+      //     repeat: -1,
+      //     yoyo: true,
+      //     x: `+=${Math.random() * 3 }`, // Décalage horizontal aléatoire
+      //     y: `+=${Math.random() * 3 }`, // Décalage vertical aléatoire
+      //     ease: 'power1.inOut',
+      //     delay: index * 0.1, // Ajouter un délai pour une animation échelonnée
+      //   });
+      // });
     }
   }
 
   openFournisseurDialog() {
     this.dialog.open(FournisseurComponent, {
       width: this.screenWidth > 800 ? '60%' : '90%',
-      enterAnimationDuration: '500ms',
+      enterAnimationDuration: '300ms',
       exitAnimationDuration: '200ms',
     });
   }
@@ -106,7 +106,7 @@ export class HomeComponent implements AfterViewInit {
   openRestaurantDialog() {
     this.dialog.open(RestaurantComponent, {
       width: this.screenWidth > 800 ? '60%' : '90%',
-      enterAnimationDuration: '500ms',
+      enterAnimationDuration: '300ms',
       exitAnimationDuration: '200ms',
     });
   }
@@ -114,7 +114,7 @@ export class HomeComponent implements AfterViewInit {
   openAvisDialog() {
     this.dialog.open(AvisComponent, {
       width: this.screenWidth > 800 ? '60%' : '90%',
-      enterAnimationDuration: '500ms',
+      enterAnimationDuration: '300ms',
       exitAnimationDuration: '200ms',
     });
   }
@@ -122,7 +122,7 @@ export class HomeComponent implements AfterViewInit {
   openActiviteDialog() {
     this.dialog.open(ActiviteComponent, {
       width: this.screenWidth > 800 ? '60%' : '90%',
-      enterAnimationDuration: '500ms',
+      enterAnimationDuration: '300ms',
       exitAnimationDuration: '200ms',
     });
   }
@@ -130,7 +130,7 @@ export class HomeComponent implements AfterViewInit {
   openEventDialog() {
     this.dialog.open(EventComponent, {
       width: this.screenWidth > 800 ? '40%' : '90%',
-      enterAnimationDuration: '500ms',
+      enterAnimationDuration: '300ms',
       exitAnimationDuration: '200ms',
     });
   }
@@ -138,7 +138,7 @@ export class HomeComponent implements AfterViewInit {
   openCarteDialog() {
     this.dialog.open(CarteComponent, {
       width: this.screenWidth > 1500 ? '60%' : '98%',
-      enterAnimationDuration: '500ms',
+      enterAnimationDuration: '300ms',
       exitAnimationDuration: '200ms',
     });
   }
@@ -146,7 +146,7 @@ export class HomeComponent implements AfterViewInit {
   openPayerDialog() {
     this.dialog.open(PayerComponent, {
       width: this.screenWidth > 800 ? '60%' : '90%',
-      enterAnimationDuration: '500ms',
+      enterAnimationDuration: '300ms',
       exitAnimationDuration: '200ms',
     });
   }
@@ -154,7 +154,7 @@ export class HomeComponent implements AfterViewInit {
   openManjocarnDialog() {
     this.dialog.open(ManjocarnComponent, {
       width: this.screenWidth > 800 ? '60%' : '90%',
-      enterAnimationDuration: '500ms',
+      enterAnimationDuration: '300ms',
       exitAnimationDuration: '200ms',
     });
   }

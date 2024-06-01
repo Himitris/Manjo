@@ -18,7 +18,7 @@
 }
 
   h1 {
-    color: white;
+    color: #5eadb7;
     -webkit-text-stroke: 1px black; /* Contour noir */
     font-size: 62px;
     font-family: "Abril Fatface", serif;
@@ -53,9 +53,9 @@
 }
 
 .button {
-  background-image: linear-gradient(to right, #248627bd, #82c785);
+  background-image: linear-gradient(to right, #5eadb7, #a0d7c3);
   border: none;
-  border-radius: 5px;
+  border-radius: 80px;
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;

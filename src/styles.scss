@@ -12,7 +12,7 @@ $md-mcgpalette1: (
     600 : #45a849,
     700 : #3c9f40,
     800 : #339637,
-    900 : #248627bd,
+    900 : #5eadb7,
     A100 : #c5ffc7,
     A200 : #92ff95,
     A400 : #5fff64,
@@ -53,3 +53,7 @@ $my-theme: mat.define-light-theme((
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+mat-dialog-container {
+  border-radius: 20px !important;
+}
