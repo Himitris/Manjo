@@ -20,6 +20,6 @@ collections:
     files:
       - name: "general"
         label: "General"
-        file: "src/general.json"
+        file: "src/assets/settings/general.json"
         fields:
           - { label: "Avis Title", name: "avis_title", widget: "string" }
