@@ -23,7 +23,7 @@ export class ActiviteComponent {
     },
     {
       name: 'Randonnée',
-      description: 'Découvrez des sentiers de randonnée pittoresques.',
+      description: 'Découvrez des sentiers de randonnée pittoresques autour de Saint-Antonin-Noble-Val',
       icon: 'hiking',
     },
     {

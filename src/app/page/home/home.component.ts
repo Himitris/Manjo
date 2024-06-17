@@ -97,7 +97,8 @@ export class HomeComponent implements AfterViewInit {
 
   openFournisseurDialog() {
     this.dialog.open(FournisseurComponent, {
-      width: this.screenWidth > 800 ? '60%' : '90%',
+      width: this.screenWidth > 800 ? '60%' : '100%',
+      maxWidth: '100%',
       enterAnimationDuration: '300ms',
       exitAnimationDuration: '200ms',
     });
@@ -105,7 +106,8 @@ export class HomeComponent implements AfterViewInit {
 
   openRestaurantDialog() {
     this.dialog.open(RestaurantComponent, {
-      width: this.screenWidth > 800 ? '60%' : '90%',
+      width: this.screenWidth > 800 ? '60%' : '100%',
+      maxWidth: '100%',
       enterAnimationDuration: '300ms',
       exitAnimationDuration: '200ms',
     });
@@ -113,7 +115,8 @@ export class HomeComponent implements AfterViewInit {
 
   openAvisDialog() {
     this.dialog.open(AvisComponent, {
-      width: this.screenWidth > 800 ? '60%' : '90%',
+      width: this.screenWidth > 800 ? '60%' : '100%',
+      maxWidth: '100%',
       enterAnimationDuration: '300ms',
       exitAnimationDuration: '200ms',
     });
@@ -121,7 +124,8 @@ export class HomeComponent implements AfterViewInit {
 
   openActiviteDialog() {
     this.dialog.open(ActiviteComponent, {
-      width: this.screenWidth > 800 ? '60%' : '90%',
+      width: this.screenWidth > 800 ? '60%' : '100%',
+      maxWidth: '100%',
       enterAnimationDuration: '300ms',
       exitAnimationDuration: '200ms',
     });
@@ -129,7 +133,8 @@ export class HomeComponent implements AfterViewInit {
 
   openEventDialog() {
     this.dialog.open(EventComponent, {
-      width: this.screenWidth > 800 ? '40%' : '90%',
+      width: this.screenWidth > 800 ? '60%' : '100%',
+      maxWidth: '100%',
       enterAnimationDuration: '300ms',
       exitAnimationDuration: '200ms',
     });
@@ -137,7 +142,8 @@ export class HomeComponent implements AfterViewInit {
 
   openCarteDialog() {
     this.dialog.open(CarteComponent, {
-      width: this.screenWidth > 1500 ? '60%' : '98%',
+      width: this.screenWidth > 800 ? '60%' : '100%',
+      maxWidth: '100%',
       enterAnimationDuration: '300ms',
       exitAnimationDuration: '200ms',
     });
@@ -145,7 +151,8 @@ export class HomeComponent implements AfterViewInit {
 
   openPayerDialog() {
     this.dialog.open(PayerComponent, {
-      width: this.screenWidth > 800 ? '60%' : '90%',
+      width: this.screenWidth > 800 ? '60%' : '100%',
+      maxWidth: '100%',
       enterAnimationDuration: '300ms',
       exitAnimationDuration: '200ms',
     });
@@ -153,7 +160,8 @@ export class HomeComponent implements AfterViewInit {
 
   openManjocarnDialog() {
     this.dialog.open(ManjocarnComponent, {
-      width: this.screenWidth > 800 ? '60%' : '90%',
+      width: this.screenWidth > 800 ? '60%' : '100%',
+      maxWidth: '100%',
       enterAnimationDuration: '300ms',
       exitAnimationDuration: '200ms',
     });

@@ -1,11 +1,12 @@
 .content-container {
-    padding: 20px;
+    padding: 10px;
     overflow: auto;
-    max-height: 700px;
+    max-height: 90vh;
 }
 
 mat-toolbar{
   justify-content: space-between;
+  height: 10vh;
 }
 
 mat-card {
