@@ -5,20 +5,14 @@
     </button>
 </mat-toolbar>
 
-<mat-card class="event-card">
-    <mat-card-header>
-        <mat-card-title>Prochains Événements</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-        <mat-list>
-            <ng-container *ngFor="let event of events">
-                <mat-list-item>
-                    <div class="event-info">
-                        <h3>{{ event.date }}</h3>
-                        <p>{{ event.description }}</p>
-                    </div>
-                </mat-list-item>
-            </ng-container>
-        </mat-list>
-    </mat-card-content>
-</mat-card>
+<div class="content-container">
+    <div class="event-list">
+        <h2>Prochains Événements</h2>
+        <ul>
+            <li *ngFor="let event of events" class="event-item">
+                <div class="event-date">{{ event.date }}</div>
+                <div class="event-description">{{ event.description }}</div>
+            </li>
+        </ul>
+    </div>
+</div>

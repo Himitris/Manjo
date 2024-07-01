@@ -45,7 +45,7 @@ export class HomeComponent implements AfterViewInit {
     { image: '/assets/plat3.jpg', title: 'Surprise Gourmande' }
   ];
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog) { }
 
   ngAfterViewInit() {
     this.updateScreenWidth();

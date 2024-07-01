@@ -5,29 +5,30 @@
     </button>
 </mat-toolbar>
 
-<div class="restaurant-info">
-    <mat-card>
+<div class="content-container">
+    <mat-card class="info-card">
         <mat-card-header>
             <mat-card-title>Ambiance de la Guinguette</mat-card-title>
         </mat-card-header>
         <mat-card-content>
             <p>Restauration simple et efficace: vous êtes dans une guinguette !!</p>
-            <p>Pas de chichi, ambiance détente, on se prélasse à l’ombre du châtaignier.</p>
+            <p>Pas de chichi, ambiance détente, on se prélasse à l'ombre du châtaignier.</p>
             <p>Nous travaillons selon les disponibilités du moment avec des produits frais du coin.</p>
         </mat-card-content>
     </mat-card>
 
-    <mat-card>
+    <mat-card class="gallery-card">
         <mat-card-header>
             <mat-card-title>Galerie de Photos</mat-card-title>
         </mat-card-header>
         <mat-card-content>
             <div class="photo-gallery">
                 <ng-container *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]">
-                    <img [src]="'../assets/photo/' + i + '.jpg'" [alt]="'Manjocarn ' + i">
+                    <div class="photo-container">
+                        <img [src]="'../assets/photo/' + i + '.jpg'" [alt]="'Manjocarn ' + i">
+                    </div>
                 </ng-container>
             </div>
         </mat-card-content>
     </mat-card>
 </div>
-<div class="espace"></div>

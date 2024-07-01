@@ -5,14 +5,30 @@
     </button>
 </mat-toolbar>
 
-<div class="activities-grid">
-    <div *ngFor="let activity of activities" class="activity-card">
-        <mat-card>
-            <mat-icon class="activity-icon">{{ activity.icon }}</mat-icon>
-            <mat-card-title>{{ activity.name }}</mat-card-title>
-            <mat-card-content>
-                {{ activity.description }}
-            </mat-card-content>
-        </mat-card>
+<div class="content-container">
+    <div class="activities-grid">
+        <div *ngFor="let activity of activities" class="activity-card">
+            <mat-card>
+                <mat-card-header>
+                    <mat-icon class="activity-icon">{{ activity.icon }}</mat-icon>
+                    <mat-card-title>{{ activity.name }}</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <p>{{ activity.description }}</p>
+                    <div *ngIf="activity.phone" class="info-item">
+                        <mat-icon>phone</mat-icon>
+                        <span>{{ activity.phone }}</span>
+                    </div>
+                    <div *ngIf="activity.website" class="info-item">
+                        <mat-icon>language</mat-icon>
+                        <a [href]="activity.website" target="_blank">Site web</a>
+                    </div>
+                    <div *ngIf="activity.address" class="info-item">
+                        <mat-icon>location_on</mat-icon>
+                        <span>{{ activity.address }}</span>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
     </div>
 </div>

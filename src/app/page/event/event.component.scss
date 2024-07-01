@@ -1,42 +1,101 @@
-/* events.component.css */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;700&display=swap');
 
-.event-card {
-  width: 400px; /* Largeur fixe pour la carte d'événements */
-  margin: 20px auto; /* Centrer la carte horizontalement et donner de l'espace autour */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  font-family: 'Roboto', sans-serif;
 }
-mat-toolbar{
+
+mat-toolbar {
   justify-content: space-between;
+  height: 64px;
+  flex-shrink: 0;
+  font-family: 'Playfair Display', serif;
 }
 
-mat-card-title {
-  color: #248627bd; /* Couleur profonde pour le titre */
+.content-container {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  background-color: #f5f5f5;
+  overflow-y: auto;
 }
 
-.event-info {
-  padding: 10px; /* Ajouter de l'espace à l'intérieur de chaque élément de liste */
+.event-list {
+  width: 90%;
+  max-width: 600px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
-h3 {
-  color: #3f51b5; /* Indigo pour les titres d'événements */
-  margin: 0; /* Réinitialiser les marges par défaut */
+h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  color: white;
+  background-color: #3f51b5;
+  margin: 0;
+  padding: 16px;
+  text-align: center;
 }
 
-p {
-  color: #757575; /* Gris pour les descriptions */
-  margin: 0; /* Réinitialiser les marges par défaut */
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
 
-mat-list-item {
-  border-bottom: 1px solid #eee; /* Ligne de séparation subtile entre les éléments */
+.event-item {
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.3s ease;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background-color: #f5f5f5;
+  }
 }
 
-mat-list-item:last-child {
-  border-bottom: none; /* Supprimer la bordure de fond pour le dernier élément */
+.event-date {
+  color: #3f51b5;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
 }
 
-@media screen and (max-width:400px) {
-  span {
+.event-description {
+  color: #757575;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+@media screen and (max-width: 600px) {
+  .event-list {
+    width: 95%;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .event-date {
+    font-size: 1rem;
+  }
+
+  .event-description {
+    font-size: 0.9rem;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  mat-toolbar span {
     font-size: 16px;
   }
 }

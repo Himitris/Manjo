@@ -1,14 +1,27 @@
 <div class="fullscreen-wrapper">
     <div class="content-overlay">
-        <h1 class="glitch" data-text="Manjocarn">Manjocarn</h1>
-        <p class="subtitle">Guinguette Réinventée</p>
+        <h1 class="rustic-title">
+            <span class="letter">M</span>
+            <span class="letter">a</span>
+            <span class="letter">n</span>
+            <span class="letter">j</span>
+            <span class="letter">o</span>
+            <span class="letter">c</span>
+            <span class="letter">a</span>
+            <span class="letter">r</span>
+            <span class="letter">n</span>
+        </h1>
     </div>
 
     <nav class="circular-nav" #buttonContainer>
-        <button *ngFor="let item of navItems; let i = index" class="nav-item" [attr.data-info]="item.title"
-            (click)="openDialog(item)" [style.--item-index]="i">
-            <img [src]="item.icon" [alt]="item.title" class="nav-icon">
-            <span class="nav-title">{{ item.title }}</span>
-        </button>
+        <div class="nav-grid">
+            <button *ngFor="let item of navItems; let i = index" class="nav-item" [attr.data-info]="item.title"
+                (click)="openDialog(item)" [style.--item-index]="i">
+                <div class="nav-content">
+                    <img [src]="item.icon" [alt]="item.title" class="nav-icon">
+                    <span class="nav-title">{{ item.title }}</span>
+                </div>
+            </button>
+        </div>
     </nav>
 </div>

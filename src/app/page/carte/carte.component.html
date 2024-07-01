@@ -7,17 +7,19 @@
 
 <div class="menu-container">
     <ng-container *ngFor="let type of menuTypes">
-        <mat-card>
+        <mat-card class="menu-card">
             <mat-card-header>
                 <mat-card-title>{{ type }}</mat-card-title>
             </mat-card-header>
             <mat-card-content>
-                <div class="element" *ngFor="let item of filteredMenu(type)">
-                    <h3>{{ item.name }} - {{ item.price | currency:'EUR' }}</h3>
+                <div class="menu-item" *ngFor="let item of filteredMenu(type)">
+                    <div class="item-header">
+                        <h3>{{ item.name }}</h3>
+                        <span class="price">{{ item.price | currency:'EUR' }}</span>
+                    </div>
                     <p>{{ item.description }}</p>
                 </div>
             </mat-card-content>
         </mat-card>
     </ng-container>
-    <div class="espace"></div>
 </div>
