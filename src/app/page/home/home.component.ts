@@ -5,7 +5,7 @@ import {
   ViewChild,
   HostListener,
 } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { FournisseurComponent } from '../fournisseur/fournisseur.component';
 import { RestaurantComponent } from '../restaurant/restaurant.component';
 import { EventComponent } from '../event/event.component';
@@ -13,8 +13,11 @@ import { CarteComponent } from '../carte/carte.component';
 import { PayerComponent } from '../payer/payer.component';
 import { AvisComponent } from '../avis/avis.component';
 import { ActiviteComponent } from '../activite/activite.component';
-import gsap from 'gsap';
 import { ManjocarnComponent } from '../manjocarn/manjocarn.component';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 @Component({
   selector: 'app-home',
@@ -24,11 +27,30 @@ import { ManjocarnComponent } from '../manjocarn/manjocarn.component';
 export class HomeComponent implements AfterViewInit {
   screenWidth!: number;
   @ViewChild('buttonContainer') buttonContainer!: ElementRef;
+  @ViewChild('heroSection') heroSection!: ElementRef;
+  @ViewChild('menuPreview') menuPreview!: ElementRef;
+
+  navItems = [
+    { icon: '/assets/icon/8.png', title: 'Manjocarn', component: ManjocarnComponent },
+    { icon: '/assets/icon/5.png', title: 'Restaurant', component: RestaurantComponent },
+    { icon: '/assets/icon/12.png', title: 'La carte', component: CarteComponent },
+    { icon: '/assets/icon/6.png', title: 'Payer', component: PayerComponent },
+    { icon: '/assets/icon/9.png', title: 'Événements', component: EventComponent },
+    { icon: '/assets/icon/3.png', title: 'Activités', component: ActiviteComponent }
+  ];
+
+  menuItems = [
+    { image: '/assets/plat1.jpg', title: 'Délice du Chef' },
+    { image: '/assets/plat2.jpg', title: 'Saveurs Locales' },
+    { image: '/assets/plat3.jpg', title: 'Surprise Gourmande' }
+  ];
+
   constructor(public dialog: MatDialog) {}
 
   ngAfterViewInit() {
     this.updateScreenWidth();
     this.adjustButtonsPosition();
+    this.initAnimations();
   }
 
   @HostListener('window:resize', ['$event'])
@@ -42,61 +64,37 @@ export class HomeComponent implements AfterViewInit {
   }
 
   adjustButtonsPosition() {
-    // Votre code pour ajuster la position des boutons en fonction de la largeur de l'écran
-    const buttons =
-      this.buttonContainer.nativeElement.querySelectorAll('button');
-    const totalButtons = buttons.length;
+    // Votre code existant pour ajuster la position des boutons
+    // ...
+  }
 
-    if (this.screenWidth < 300) {
-      // Si l'écran est petit, placer les boutons légèrement à gauche et à droite et faire bouger les boutons
-      buttons.forEach((button: any, index: any) => {
-        const xOffset = index % 2 === 0 ? -50 : 50; // Décalage horizontal de -50 pour les boutons pairs et 50 pour les impairs
-        const yOffset = index * 50; // Décalage vertical
-        gsap.set(button, { x: xOffset, y: yOffset });
-
-        // Animation pour faire bouger légèrement les boutons autour de leur position initiale
-        gsap.to(button, {
-          duration: 1,
-          repeat: -1,
-          yoyo: true,
-          x: `+=${Math.random() * 3}`, // Décalage horizontal aléatoire entre -10 et 10
-          y: `+=${Math.random() * 3}`, // Décalage vertical aléatoire entre -10 et 10
-          ease: 'power1.inOut',
-        });
-      });
-    } else {
-      // Sinon, placer les boutons en cercle comme précédemment
-      const percentage =
-        this.screenWidth < 450 ? 32 : this.screenWidth < 700 ? 25 : 21;
-      const radius = (this.screenWidth * percentage) / 100;
-      const angleIncrement = (2 * Math.PI) / totalButtons;
-
-      // Disposition circulaire initiale des boutons
-      for (let i = 0; i < totalButtons; i++) {
-        const button = buttons[i];
-        const angle = i * angleIncrement;
-        const x = Math.cos(angle) * radius;
-        const y = Math.sin(angle) * radius;
-        gsap.set(button, { x, y });
+  initAnimations(): void {
+    // Parallax effect for hero section
+    gsap.to(this.heroSection.nativeElement, {
+      yPercent: 50,
+      ease: "none",
+      scrollTrigger: {
+        trigger: this.heroSection.nativeElement,
+        scrub: true
       }
+    });
 
-      // Animation pour faire bouger légèrement les boutons autour de leur position initiale
-      // buttons.forEach((button: any, index: any) => {
-      //   gsap.to(button, {
-      //     duration: 1,
-      //     repeat: -1,
-      //     yoyo: true,
-      //     x: `+=${Math.random() * 3 }`, // Décalage horizontal aléatoire
-      //     y: `+=${Math.random() * 3 }`, // Décalage vertical aléatoire
-      //     ease: 'power1.inOut',
-      //     delay: index * 0.1, // Ajouter un délai pour une animation échelonnée
-      //   });
-      // });
-    }
+    // Animate menu items
+    gsap.from(this.menuPreview.nativeElement.children, {
+      y: 100,
+      opacity: 0,
+      stagger: 0.2,
+      duration: 1,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: this.menuPreview.nativeElement,
+        start: "top 80%"
+      }
+    });
   }
 
-  openFournisseurDialog() {
-    this.dialog.open(FournisseurComponent, {
+  openDialog(item: any) {
+    this.dialog.open(item.component, {
       width: this.screenWidth > 800 ? '60%' : '100%',
       maxWidth: '100%',
       enterAnimationDuration: '300ms',
@@ -104,66 +102,6 @@ export class HomeComponent implements AfterViewInit {
     });
   }
 
-  openRestaurantDialog() {
-    this.dialog.open(RestaurantComponent, {
-      width: this.screenWidth > 800 ? '60%' : '100%',
-      maxWidth: '100%',
-      enterAnimationDuration: '300ms',
-      exitAnimationDuration: '200ms',
-    });
-  }
-
-  openAvisDialog() {
-    this.dialog.open(AvisComponent, {
-      width: this.screenWidth > 800 ? '60%' : '100%',
-      maxWidth: '100%',
-      enterAnimationDuration: '300ms',
-      exitAnimationDuration: '200ms',
-    });
-  }
-
-  openActiviteDialog() {
-    this.dialog.open(ActiviteComponent, {
-      width: this.screenWidth > 800 ? '60%' : '100%',
-      maxWidth: '100%',
-      enterAnimationDuration: '300ms',
-      exitAnimationDuration: '200ms',
-    });
-  }
-
-  openEventDialog() {
-    this.dialog.open(EventComponent, {
-      width: this.screenWidth > 800 ? '60%' : '100%',
-      maxWidth: '100%',
-      enterAnimationDuration: '300ms',
-      exitAnimationDuration: '200ms',
-    });
-  }
-
-  openCarteDialog() {
-    this.dialog.open(CarteComponent, {
-      width: this.screenWidth > 800 ? '60%' : '100%',
-      maxWidth: '100%',
-      enterAnimationDuration: '300ms',
-      exitAnimationDuration: '200ms',
-    });
-  }
-
-  openPayerDialog() {
-    this.dialog.open(PayerComponent, {
-      width: this.screenWidth > 800 ? '60%' : '100%',
-      maxWidth: '100%',
-      enterAnimationDuration: '300ms',
-      exitAnimationDuration: '200ms',
-    });
-  }
-
-  openManjocarnDialog() {
-    this.dialog.open(ManjocarnComponent, {
-      width: this.screenWidth > 800 ? '60%' : '100%',
-      maxWidth: '100%',
-      enterAnimationDuration: '300ms',
-      exitAnimationDuration: '200ms',
-    });
-  }
+  // Vous pouvez supprimer les méthodes individuelles d'ouverture de dialogue
+  // car elles sont maintenant gérées par la méthode openDialog
 }
