@@ -6,12 +6,10 @@ import {
   HostListener,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { FournisseurComponent } from '../fournisseur/fournisseur.component';
 import { RestaurantComponent } from '../restaurant/restaurant.component';
 import { EventComponent } from '../event/event.component';
 import { CarteComponent } from '../carte/carte.component';
 import { PayerComponent } from '../payer/payer.component';
-import { AvisComponent } from '../avis/avis.component';
 import { ActiviteComponent } from '../activite/activite.component';
 import { ManjocarnComponent } from '../manjocarn/manjocarn.component';
 import gsap from 'gsap';
@@ -50,7 +48,12 @@ export class HomeComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.updateScreenWidth();
     this.adjustButtonsPosition();
-    this.initAnimations();
+
+    window.onload = () => {
+      setTimeout(() => {
+        this.initAnimations();
+      }, 100);
+    };
   }
 
   @HostListener('window:resize', ['$event'])
