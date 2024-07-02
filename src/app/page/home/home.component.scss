@@ -1,3 +1,9 @@
+$dark-gray: #6A645A;
+$pale-gold: #E3CD8B;
+$forest-green: #5D7052;
+$rusty-orange: #C18845;
+$peach: #F0BE86;
+$background-color: #F8F5F0;
 :host {
   display: block;
   font-family: 'Roboto', sans-serif;
@@ -41,38 +47,21 @@
   font-family: 'Cabin Sketch', cursive;
   font-size: clamp(3rem, 8vw, 6rem);
   font-weight: 700;
-  color: #f0f4f7;
+  color: $pale-gold;
   text-align: center;
   position: relative;
   padding: clamp(10px, 2vw, 20px);
   text-shadow:
-    2px 2px 0 #2c3e50,
-    4px 4px 0 #34495e;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background:
-      linear-gradient(45deg, rgba(121, 85, 72, 0.1) 25%, transparent 25%),
-      linear-gradient(-45deg, rgba(121, 85, 72, 0.1) 25%, transparent 25%),
-      linear-gradient(45deg, transparent 75%, rgba(121, 85, 72, 0.1) 75%),
-      linear-gradient(-45deg, transparent 75%, rgba(121, 85, 72, 0.1) 75%);
-    background-size: 20px 20px;
-    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
-    z-index: -1;
-  }
+    2px 2px 0 $dark-gray,
+    4px 4px 0 rgba($dark-gray, 0.7);
 
   &::after {
     content: 'Guinguette';
     display: block;
     font-family: 'Amatic SC', cursive;
     font-size: clamp(1.5rem, 4vw, 2.5rem);
-    color: #a5d6a7;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    color: $peach;
+    text-shadow: 1px 1px 2px rgba($dark-gray, 0.3);
     letter-spacing: 2px;
     margin-top: clamp(5px, 1vw, 10px);
     transform: translateY(10px);
@@ -88,12 +77,12 @@
     .letter {
       &:nth-child(odd) {
         transform: translateY(-5px) rotate(-5deg);
-        color: #81c784;
+        color: $rusty-orange;
       }
 
       &:nth-child(even) {
         transform: translateY(5px) rotate(5deg);
-        color: #4caf50;
+        color: $forest-green;
       }
     }
 
@@ -109,7 +98,6 @@
   justify-content: center;
   gap: clamp(0.5rem, 2vw, 1rem);
   width: 100%;
-  max-width: 1200px;
   z-index: 2;
   padding: clamp(0.5rem, 2vw, 1rem);
 }

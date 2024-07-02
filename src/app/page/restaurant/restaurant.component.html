@@ -1,12 +1,12 @@
 <mat-toolbar color="primary">
-    <span>Le Restaurant de la Guinguette</span>
+    <span>Le Restaurant</span>
     <button mat-icon-button mat-dialog-close aria-label="Close dialog">
         <mat-icon>close</mat-icon>
     </button>
 </mat-toolbar>
 
 <div class="content-container">
-    <mat-card class="info-card">
+    <mat-card class="info-card ambiance">
         <mat-card-header>
             <mat-card-title>Ambiance de la Guinguette</mat-card-title>
         </mat-card-header>
@@ -17,18 +17,22 @@
         </mat-card-content>
     </mat-card>
 
-    <mat-card class="gallery-card">
+    <mat-card class="info-card photo">
         <mat-card-header>
-            <mat-card-title>Galerie de Photos</mat-card-title>
+            <mat-card-title>Photos de Manjocarn</mat-card-title>
         </mat-card-header>
         <mat-card-content>
             <div class="photo-gallery">
                 <ng-container *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]">
-                    <div class="photo-container">
+                    <div class="photo-container" (click)="openFullscreen($event)">
                         <img [src]="'../assets/photo/' + i + '.jpg'" [alt]="'Manjocarn ' + i">
                     </div>
                 </ng-container>
             </div>
         </mat-card-content>
     </mat-card>
-</div>
+    
+    <div class="fullscreen-overlay" (click)="closeFullscreen()">
+        <img src="" alt="Fullscreen image">
+        <span class="close-button">&times;</span>
+    </div>
