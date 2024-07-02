@@ -13,15 +13,13 @@
         </h1>
     </div>
 
-    <nav class="circular-nav" #buttonContainer>
-        <div class="nav-grid">
-            <button *ngFor="let item of navItems; let i = index" class="nav-item" [attr.data-info]="item.title"
-                (click)="openDialog(item)" [style.--item-index]="i">
-                <div class="nav-content">
-                    <img [src]="item.icon" [alt]="item.title" class="nav-icon">
-                    <span class="nav-title">{{ item.title }}</span>
-                </div>
-            </button>
-        </div>
+    <nav class="flex-nav">
+        <button *ngFor="let item of navItems; let i = index" class="nav-item" [attr.data-info]="item.title"
+            (click)="openDialog(item)" [style.--item-index]="i">
+            <div class="nav-content">
+                <img [src]="item.icon" [alt]="item.title" class="nav-icon">
+                <span class="nav-title">{{ item.title }}</span>
+            </div>
+        </button>
     </nav>
 </div>
