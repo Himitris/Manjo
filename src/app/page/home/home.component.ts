@@ -79,11 +79,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     // Attendre que le DOM soit complètement chargé
     setTimeout(() => {
       this.ngZone.runOutsideAngular(() => {
-        try {
           this.initAnimations();
-        } catch (error) {
-          console.error("Erreur lors de l'initialisation des animations GSAP:", error);
-        }
       });
     }, 100); // Un délai légèrement plus long pour s'assurer que tout est chargé
   }
@@ -137,7 +133,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
       // Animation continue des boutons
       gsap.to(navItems, {
-        y: '+=10',
+        y: '+=30',
         yoyo: true,
         repeat: -1,
         duration: 2,

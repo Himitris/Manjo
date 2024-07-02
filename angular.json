@@ -56,6 +56,10 @@
                   "maximumError": "4kb"
                 }
               ],
+              "scripts": [
+                "node_modules/gsap/dist/gsap.min.js",
+                "node_modules/gsap/dist/ScrollTrigger.min.js"
+              ],
               "outputHashing": "all"
             },
             "development": {
@@ -87,19 +91,11 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.png",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.png", "src/assets"],
+            "styles": ["src/styles.scss"],
             "scripts": []
           }
         }
