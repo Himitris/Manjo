@@ -6,6 +6,7 @@ import {
   HostListener,
   NgZone,
   OnInit,
+  OnDestroy
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { RestaurantComponent } from '../restaurant/restaurant.component';
@@ -24,42 +25,30 @@ gsap.registerPlugin(ScrollTrigger);
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit, AfterViewInit {
+export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   screenWidth!: number;
   @ViewChild('buttonContainer') buttonContainer!: ElementRef;
   @ViewChild('heroSection') heroSection!: ElementRef;
   @ViewChild('menuPreview') menuPreview!: ElementRef;
 
   navItems = [
-    {
-      icon: '/assets/icon/8.png',
-      title: 'Manjocarn',
-      component: ManjocarnComponent,
-    },
-    {
-      icon: '/assets/icon/5.png',
-      title: 'Restaurant',
-      component: RestaurantComponent,
-    },
-    {
-      icon: '/assets/icon/12.png',
-      title: 'La carte',
-      component: CarteComponent,
-    },
+    { icon: '/assets/icon/8.png', title: 'Manjocarn', component: ManjocarnComponent },
+    { icon: '/assets/icon/5.png', title: 'Restaurant', component: RestaurantComponent },
+    { icon: '/assets/icon/12.png', title: 'La carte', component: CarteComponent },
     { icon: '/assets/icon/6.png', title: 'Payer', component: PayerComponent },
-    {
-      icon: '/assets/icon/9.png',
-      title: 'Événements',
-      component: EventComponent,
-    },
-    {
-      icon: '/assets/icon/3.png',
-      title: 'Activités',
-      component: ActiviteComponent,
-    },
+    { icon: '/assets/icon/9.png', title: 'Événements', component: EventComponent },
+    { icon: '/assets/icon/3.png', title: 'Activités', component: ActiviteComponent }
   ];
 
-  constructor(public dialog: MatDialog, private ngZone: NgZone) {}
+  menuItems = [
+    { image: '/assets/plat1.jpg', title: 'Délice du Chef' },
+    { image: '/assets/plat2.jpg', title: 'Saveurs Locales' },
+    { image: '/assets/plat3.jpg', title: 'Surprise Gourmande' }
+  ];
+
+  private timeline: gsap.core.Timeline | null = null;
+
+  constructor(public dialog: MatDialog, private ngZone: NgZone) { }
 
   ngOnInit() {
     this.updateScreenWidth();
@@ -71,46 +60,84 @@ export class HomeComponent implements OnInit, AfterViewInit {
     });
   }
 
+  ngOnDestroy() {
+    if (this.timeline) {
+      this.timeline.kill();
+    }
+    ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+  }
+
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.updateScreenWidth();
+    this.adjustButtonsPosition();
   }
 
   updateScreenWidth() {
     this.screenWidth = window.innerWidth;
   }
 
+  adjustButtonsPosition() {
+    // Si nécessaire, ajustez la position des boutons ici
+  }
+
   initAnimations(): void {
-    // Parallax effect for hero section
-    gsap.to(this.heroSection.nativeElement, {
-      yPercent: 50,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: this.heroSection.nativeElement,
-        scrub: true,
-      },
-    });
+    this.timeline = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-    // Animate menu items
-    gsap.from(this.menuPreview.nativeElement.children, {
-      y: 100,
+    // Animation du titre
+    this.timeline.from('.rustic-title', {
+      y: 50,
       opacity: 0,
-      stagger: 0.2,
       duration: 1,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: this.menuPreview.nativeElement,
-        start: 'top 80%',
-      },
+      stagger: 0.1
     });
 
-    // Animate nav items
-    gsap.from('.nav-item', {
+    // Animation des boutons de navigation
+    this.timeline.from('.nav-item', {
+      scale: 0,
       opacity: 0,
-      y: 20,
+      duration: 0.8,
       stagger: 0.1,
-      duration: 0.6,
-      ease: 'power3.out',
+      ease: 'back.out(1.7)'
+    }, '-=0.5');
+
+    // Animation continue des boutons
+    gsap.to('.nav-item', {
+      y: '+=10',
+      yoyo: true,
+      repeat: -1,
+      duration: 2,
+      ease: 'sine.inOut',
+      stagger: {
+        each: 0.2,
+        from: 'random'
+      }
+    });
+
+    // Effet de parallaxe pour la section héro
+    ScrollTrigger.create({
+      trigger: this.heroSection.nativeElement,
+      start: 'top top',
+      end: 'bottom top',
+      scrub: true,
+      animation: gsap.to(this.heroSection.nativeElement, {
+        backgroundPositionY: '50%',
+        ease: 'none'
+      })
+    });
+
+    // Animation des éléments du menu
+    ScrollTrigger.batch('.menu-item', {
+      onEnter: (elements) => {
+        gsap.from(elements, {
+          opacity: 0,
+          y: 50,
+          stagger: 0.15,
+          duration: 0.8,
+          ease: 'power3.out'
+        });
+      },
+      start: 'top 80%'
     });
   }
 
