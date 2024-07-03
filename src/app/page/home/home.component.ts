@@ -67,7 +67,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   ];
 
   private timeline: gsap.core.Timeline | null = null;
-  private animationsInitialized = false;
 
   constructor(public dialog: MatDialog, private ngZone: NgZone) {}
 
@@ -76,12 +75,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    // Attendre que le DOM soit complètement chargé
-    setTimeout(() => {
-      this.ngZone.runOutsideAngular(() => {
-        this.initAnimations();
-      });
-    }, 100);
+    this.ngZone.runOutsideAngular(() => {
+      this.initAnimations();
+    });
   }
 
   ngOnDestroy() {
@@ -101,14 +97,12 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   initAnimations(): void {
-    if (this.animationsInitialized) return;
-
     this.timeline = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-    // Animation du titre
+    // Animation du titre (inchangée)
     const titleElement = document.querySelector('.rustic-title');
     if (titleElement) {
-      this.timeline.from(titleElement.children, {
+      this.timeline.from(titleElement, {
         y: 50,
         opacity: 0,
         duration: 1,
@@ -131,7 +125,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         '-=0.5'
       );
 
-      // Animation continue des boutons
+      // Animation continue des boutons (flottement)
       gsap.to(navItems, {
         y: '+=30',
         yoyo: true,
@@ -145,7 +139,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       });
     }
 
-    // Effet de parallaxe pour la section héro
+    // Effet de parallaxe pour la section héro (inchangé)
     if (this.heroSection && this.heroSection.nativeElement) {
       ScrollTrigger.create({
         trigger: this.heroSection.nativeElement,
@@ -159,7 +153,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       });
     }
 
-    // Animation des éléments du menu
+    // Animation des éléments du menu (inchangée)
     if (this.menuPreview && this.menuPreview.nativeElement) {
       const menuItems =
         this.menuPreview.nativeElement.querySelectorAll('.menu-item');
@@ -178,8 +172,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         });
       }
     }
-
-    this.animationsInitialized = true;
   }
 
   openDialog(item: any) {
