@@ -7,6 +7,8 @@ import {
   NgZone,
   OnInit,
   OnDestroy,
+  Inject,
+  PLATFORM_ID,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { RestaurantComponent } from '../restaurant/restaurant.component';
@@ -17,8 +19,7 @@ import { ActiviteComponent } from '../activite/activite.component';
 import { ManjocarnComponent } from '../manjocarn/manjocarn.component';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -68,16 +69,17 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private timeline: gsap.core.Timeline | null = null;
 
-  constructor(public dialog: MatDialog, private ngZone: NgZone) {}
+  constructor(public dialog: MatDialog, private ngZone: NgZone, @Inject(PLATFORM_ID) private platformId: Object) {}
 
   ngOnInit() {
     this.updateScreenWidth();
   }
 
   ngAfterViewInit() {
-    this.ngZone.runOutsideAngular(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    if (isPlatformBrowser(this.platformId)) {
       this.initAnimations();
-    });
+    }
   }
 
   ngOnDestroy() {
