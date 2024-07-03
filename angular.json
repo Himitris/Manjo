@@ -43,10 +43,7 @@
             ],
             "optimization": {
               "scripts": true,
-              "styles": {
-                "minify": true,
-                "inlineCritical": false
-              }
+              "styles": false
             },
             "sourceMap": true
           },
