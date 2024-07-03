@@ -21,6 +21,8 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { isPlatformBrowser } from '@angular/common';
 
+gsap.registerPlugin(ScrollTrigger);
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -69,14 +71,17 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private timeline: gsap.core.Timeline | null = null;
 
-  constructor(public dialog: MatDialog, private ngZone: NgZone, @Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(
+    public dialog: MatDialog,
+    private ngZone: NgZone,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   ngOnInit() {
     this.updateScreenWidth();
   }
 
   ngAfterViewInit() {
-    gsap.registerPlugin(ScrollTrigger);
     if (isPlatformBrowser(this.platformId)) {
       this.initAnimations();
     }
