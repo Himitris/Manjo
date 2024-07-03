@@ -40,7 +40,14 @@
             "scripts": [
               "node_modules/gsap/dist/gsap.min.js",
               "node_modules/gsap/dist/ScrollTrigger.min.js"
-            ]
+            ],
+            "optimization": {
+              "styles": {
+                "minify": true,
+                "inlineCritical": false
+              }
+            },
+            "sourceMap": true
           },
           "configurations": {
             "production": {
@@ -55,10 +62,6 @@
                   "maximumWarning": "4kb",
                   "maximumError": "6kb"
                 }
-              ],
-              "scripts": [
-                "node_modules/gsap/dist/gsap.min.js",
-                "node_modules/gsap/dist/ScrollTrigger.min.js"
               ],
               "outputHashing": "all"
             },
