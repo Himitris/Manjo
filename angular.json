@@ -42,10 +42,8 @@
               "node_modules/gsap/dist/ScrollTrigger.min.js"
             ],
             "optimization": {
-              "styles": {
-                "minify": true,
-                "inlineCritical": false
-              }
+              "scripts": true,
+              "styles": false
             },
             "sourceMap": true
           },
