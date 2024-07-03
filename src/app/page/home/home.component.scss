@@ -1,12 +1,12 @@
-$dark-gray: #6A645A;
-$pale-gold: #E3CD8B;
-$forest-green: #5D7052;
-$rusty-orange: #C18845;
-$peach: #F0BE86;
-$background-color: #F8F5F0;
+$dark-gray: #6a645a;
+$pale-gold: #e3cd8b;
+$forest-green: #5d7052;
+$rusty-orange: #c18845;
+$peach: #f0be86;
+$background-color: #f8f5f0;
 :host {
   display: block;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   color: #fcf9ef;
   overflow: hidden;
 }
@@ -14,7 +14,7 @@ $background-color: #F8F5F0;
 .fullscreen-wrapper {
   min-height: 100vh;
   width: 100%;
-  background: url('/assets/bg.jpg') no-repeat center center fixed;
+  background: url("/assets/bg.jpg") no-repeat center center fixed;
   background-size: cover;
   display: flex;
   flex-direction: column;
@@ -26,7 +26,7 @@ $background-color: #F8F5F0;
   box-sizing: border-box;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     right: 0;
@@ -44,21 +44,19 @@ $background-color: #F8F5F0;
 }
 
 .rustic-title {
-  font-family: 'Cabin Sketch', cursive;
+  font-family: "Cabin Sketch", cursive;
   font-size: clamp(3rem, 8vw, 6rem);
   font-weight: 700;
   color: $pale-gold;
   text-align: center;
   position: relative;
   padding: clamp(10px, 2vw, 20px);
-  text-shadow:
-    2px 2px 0 $dark-gray,
-    4px 4px 0 rgba($dark-gray, 0.7);
+  text-shadow: 2px 2px 0 $dark-gray, 4px 4px 0 rgba($dark-gray, 0.7);
 
   &::after {
-    content: 'Guinguette';
+    content: "Guinguette";
     display: block;
-    font-family: 'Amatic SC', cursive;
+    font-family: "Amatic SC", cursive;
     font-size: clamp(1.5rem, 4vw, 2.5rem);
     color: $peach;
     text-shadow: 1px 1px 2px rgba($dark-gray, 0.3);
@@ -118,9 +116,9 @@ $background-color: #F8F5F0;
   position: relative;
   overflow: hidden;
   opacity: 0;
-  animation: 
-    fadeInUp 0.6s ease-out forwards,
-    float 5s ease-in-out infinite;
+  /*! purgecss start ignore */
+  animation: fadeInUp 0.6s ease-out forwards, float 5s ease-in-out infinite;
+  /*! purgecss end ignore */
   animation-delay: calc(var(--item-index) * 0.1s);
 
   &:hover {
@@ -162,13 +160,17 @@ $background-color: #F8F5F0;
   }
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(circle at center, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%);
+    background: radial-gradient(
+      circle at center,
+      rgba(255, 255, 255, 0.3) 0%,
+      rgba(255, 255, 255, 0) 70%
+    );
     opacity: 0;
     transition: opacity 0.3s ease;
   }
@@ -189,10 +191,17 @@ $background-color: #F8F5F0;
   }
 }
 
+/*! purgecss start ignore */
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
+/*! purgecss end ignore */
 
 @media (max-width: 768px) {
   .nav-item {

@@ -43,7 +43,13 @@
             ],
             "optimization": {
               "scripts": true,
-              "styles": false
+              "styles": {
+                "minify": true,
+                "inlineCritical": false
+              }
+            },
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/styles"]
             },
             "sourceMap": true
           },
