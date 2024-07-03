@@ -79,9 +79,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     // Attendre que le DOM soit complètement chargé
     setTimeout(() => {
       this.ngZone.runOutsideAngular(() => {
-          this.initAnimations();
+        this.initAnimations();
       });
-    }, 100); // Un délai légèrement plus long pour s'assurer que tout est chargé
+    }, 100);
   }
 
   ngOnDestroy() {
@@ -108,7 +108,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     // Animation du titre
     const titleElement = document.querySelector('.rustic-title');
     if (titleElement) {
-      this.timeline.from(titleElement, {
+      this.timeline.from(titleElement.children, {
         y: 50,
         opacity: 0,
         duration: 1,
@@ -161,7 +161,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // Animation des éléments du menu
     if (this.menuPreview && this.menuPreview.nativeElement) {
-      const menuItems = this.menuPreview.nativeElement.querySelectorAll('.menu-item');
+      const menuItems =
+        this.menuPreview.nativeElement.querySelectorAll('.menu-item');
       if (menuItems.length > 0) {
         ScrollTrigger.batch(menuItems, {
           onEnter: (elements) => {
