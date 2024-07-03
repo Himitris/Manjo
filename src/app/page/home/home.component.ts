@@ -1,25 +1,22 @@
 import {
   Component,
-  ElementRef,
-  AfterViewInit,
-  ViewChild,
-  HostListener,
-  NgZone,
   OnInit,
+  AfterViewInit,
   OnDestroy,
   Inject,
   PLATFORM_ID,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { isPlatformBrowser } from '@angular/common';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
 import { RestaurantComponent } from '../restaurant/restaurant.component';
 import { EventComponent } from '../event/event.component';
 import { CarteComponent } from '../carte/carte.component';
 import { PayerComponent } from '../payer/payer.component';
 import { ActiviteComponent } from '../activite/activite.component';
 import { ManjocarnComponent } from '../manjocarn/manjocarn.component';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { isPlatformBrowser } from '@angular/common';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -29,10 +26,7 @@ gsap.registerPlugin(ScrollTrigger);
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
-  screenWidth!: number;
-  @ViewChild('buttonContainer') buttonContainer!: ElementRef;
-  @ViewChild('heroSection') heroSection!: ElementRef;
-  @ViewChild('menuPreview') menuPreview!: ElementRef;
+  screenWidth = window.innerWidth;
 
   navItems = [
     {
@@ -63,22 +57,15 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     },
   ];
 
-  menuItems = [
-    { image: '/assets/plat1.jpg', title: 'Délice du Chef' },
-    { image: '/assets/plat2.jpg', title: 'Saveurs Locales' },
-    { image: '/assets/plat3.jpg', title: 'Surprise Gourmande' },
-  ];
-
   private timeline: gsap.core.Timeline | null = null;
 
   constructor(
     public dialog: MatDialog,
-    private ngZone: NgZone,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngOnInit() {
-    this.updateScreenWidth();
+    window.addEventListener('resize', this.updateScreenWidth.bind(this));
   }
 
   ngAfterViewInit() {
@@ -88,39 +75,39 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.timeline) {
-      this.timeline.kill();
-    }
+    this.timeline?.kill();
     ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    window.removeEventListener('resize', this.updateScreenWidth);
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize() {
-    this.updateScreenWidth();
-  }
-
-  updateScreenWidth() {
+  private updateScreenWidth() {
     this.screenWidth = window.innerWidth;
   }
 
-  initAnimations(): void {
+  private initAnimations(): void {
     this.timeline = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-    // Animation du titre (inchangée)
+    this.animateTitle();
+    this.animateNavItems();
+    this.setupParallax();
+  }
+
+  private animateTitle(): void {
     const titleElement = document.querySelector('.rustic-title');
     if (titleElement) {
-      this.timeline.from(titleElement, {
+      this.timeline?.from(titleElement, {
         y: 50,
         opacity: 0,
         duration: 1,
         stagger: 0.1,
       });
     }
+  }
 
-    // Animation des boutons de navigation
+  private animateNavItems(): void {
     const navItems = document.querySelectorAll('.nav-item');
     if (navItems.length > 0) {
-      this.timeline.from(
+      this.timeline?.from(
         navItems,
         {
           scale: 0,
@@ -132,52 +119,30 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         '-=0.5'
       );
 
-      // Animation continue des boutons (flottement)
       gsap.to(navItems, {
         y: '+=30',
         yoyo: true,
         repeat: -1,
         duration: 2,
         ease: 'sine.inOut',
-        stagger: {
-          each: 0.2,
-          from: 'random',
-        },
+        stagger: { each: 0.2, from: 'random' },
       });
     }
+  }
 
-    // Effet de parallaxe pour la section héro (inchangé)
-    if (this.heroSection && this.heroSection.nativeElement) {
+  private setupParallax(): void {
+    const heroSection = document.querySelector('.hero-section');
+    if (heroSection) {
       ScrollTrigger.create({
-        trigger: this.heroSection.nativeElement,
+        trigger: heroSection,
         start: 'top top',
         end: 'bottom top',
         scrub: true,
-        animation: gsap.to(this.heroSection.nativeElement, {
+        animation: gsap.to(heroSection, {
           backgroundPositionY: '50%',
           ease: 'none',
         }),
       });
-    }
-
-    // Animation des éléments du menu (inchangée)
-    if (this.menuPreview && this.menuPreview.nativeElement) {
-      const menuItems =
-        this.menuPreview.nativeElement.querySelectorAll('.menu-item');
-      if (menuItems.length > 0) {
-        ScrollTrigger.batch(menuItems, {
-          onEnter: (elements) => {
-            gsap.from(elements, {
-              opacity: 0,
-              y: 50,
-              stagger: 0.15,
-              duration: 0.8,
-              ease: 'power3.out',
-            });
-          },
-          start: 'top 80%',
-        });
-      }
     }
   }
 
