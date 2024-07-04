@@ -9,7 +9,6 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { isPlatformBrowser } from '@angular/common';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import { RestaurantComponent } from '../restaurant/restaurant.component';
 import { EventComponent } from '../event/event.component';
@@ -17,8 +16,6 @@ import { CarteComponent } from '../carte/carte.component';
 import { PayerComponent } from '../payer/payer.component';
 import { ActiviteComponent } from '../activite/activite.component';
 import { ManjocarnComponent } from '../manjocarn/manjocarn.component';
-
-gsap.registerPlugin(ScrollTrigger);
 
 @Component({
   selector: 'app-home',
@@ -65,7 +62,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    window.addEventListener('resize', this.updateScreenWidth.bind(this));
+    if (isPlatformBrowser(this.platformId)) {
+      window.addEventListener('resize', this.updateScreenWidth.bind(this));
+    }
   }
 
   ngAfterViewInit() {
@@ -75,9 +74,10 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.timeline?.kill();
-    ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    window.removeEventListener('resize', this.updateScreenWidth);
+    if (isPlatformBrowser(this.platformId)) {
+      this.timeline?.kill();
+      window.removeEventListener('resize', this.updateScreenWidth);
+    }
   }
 
   private updateScreenWidth() {
@@ -85,22 +85,16 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private initAnimations(): void {
-    this.timeline = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    this.timeline = gsap.timeline({ defaults: { ease: 'power2.out' } });
 
     this.animateTitle();
     this.animateNavItems();
-    this.setupParallax();
   }
 
   private animateTitle(): void {
     const titleElement = document.querySelector('.rustic-title');
     if (titleElement) {
-      this.timeline?.from(titleElement, {
-        y: 50,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.1,
-      });
+      this.timeline?.from(titleElement, { y: 30, opacity: 0, duration: 0.8 });
     }
   }
 
@@ -110,39 +104,13 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       this.timeline?.from(
         navItems,
         {
-          scale: 0,
+          y: 20,
           opacity: 0,
-          duration: 0.8,
+          duration: 0.5,
           stagger: 0.1,
-          ease: 'back.out(1.7)',
         },
-        '-=0.5'
+        '-=0.3'
       );
-
-      gsap.to(navItems, {
-        y: '+=30',
-        yoyo: true,
-        repeat: -1,
-        duration: 2,
-        ease: 'sine.inOut',
-        stagger: { each: 0.2, from: 'random' },
-      });
-    }
-  }
-
-  private setupParallax(): void {
-    const heroSection = document.querySelector('.hero-section');
-    if (heroSection) {
-      ScrollTrigger.create({
-        trigger: heroSection,
-        start: 'top top',
-        end: 'bottom top',
-        scrub: true,
-        animation: gsap.to(heroSection, {
-          backgroundPositionY: '50%',
-          ease: 'none',
-        }),
-      });
     }
   }
 
