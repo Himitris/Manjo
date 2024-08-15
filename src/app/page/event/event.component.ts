@@ -14,7 +14,7 @@ export class EventComponent {
       description: 'Cours de salsa (débutant à avancé)',
     },
     {
-      date: 'Le samedi 17 août',
+      date: 'Le dimanche 18 août',
       description: 'Cours de salsa (débutant et avancé)',
     },
   ];
