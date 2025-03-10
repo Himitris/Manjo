@@ -6,8 +6,11 @@ $peach: #F0BE86;
 $background-color: #F8F5F0;
 
 :host {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
   font-family: 'Poppins', sans-serif;
+  background-color: $background-color;
 }
 
 mat-toolbar {
@@ -29,10 +32,13 @@ mat-toolbar {
 }
 
 .manjocarn-content {
+  flex-grow: 1;
   padding: 20px;
-  background-color: $background-color;
-  min-width: 400px;
-  max-width: 600px;
+  padding-bottom: 60px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .title {
