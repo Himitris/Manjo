@@ -8,14 +8,15 @@ $background-color: #F8F5F0;
 :host {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
+  width: 100%;
   font-family: 'Poppins', sans-serif;
   background-color: $background-color;
 }
 
 mat-toolbar {
   justify-content: space-between;
-  height: 70px;
+  height: 64px;
   flex-shrink: 0;
   font-family: 'Playfair Display', serif;
   background-color: $forest-green;
@@ -32,26 +33,10 @@ mat-toolbar {
   }
 }
 
-.content-container {
-  flex-grow: 1;
-  padding: 30px;
+.payer-content {
+  flex: 1;
+  padding: 20px;
   overflow-y: auto;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-mat-card {
-  width: 100%;
-  max-width: 800px;
-  background-color: white;
-  border-radius: 15px;
-  box-shadow: 0 10px 20px rgba($dark-gray, 0.1);
-  overflow: hidden;
-}
-
-mat-card-content {
-  padding: 30px;
 }
 
 h2 {
@@ -138,46 +123,5 @@ ul {
       font-size: 1.1rem;
       color: $dark-gray;
     }
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .content-container {
-    padding: 20px;
-  }
-
-  h2 {
-    font-size: 1.8rem;
-  }
-
-  p {
-    font-size: 1rem;
-  }
-
-  mat-card-content {
-    padding: 20px;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  mat-toolbar span {
-    font-size: 1.5rem;
-  }
-
-  h2 {
-    font-size: 1.6rem;
-  }
-
-  p {
-    font-size: 0.9rem;
-  }
-
-  .contact-info span,
-  ul li span {
-    font-size: 1rem;
-  }
-
-  mat-card-content {
-    padding: 15px;
   }
 }

@@ -113,11 +113,13 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       );
     }
   }
-
   openDialog(item: any) {
     this.dialog.open(item.component, {
-      width: this.screenWidth > 800 ? '60%' : '100%',
-      maxWidth: '100%',
+      width: 'auto',
+      height: 'auto',
+      maxWidth: '95vw',
+      maxHeight: '90vh',
+      panelClass: 'adaptive-modal',
       enterAnimationDuration: '300ms',
       exitAnimationDuration: '200ms',
     });

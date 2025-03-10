@@ -6,25 +6,20 @@ $peach: #F0BE86;
 $background-color: #F8F5F0;
 
 :host {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
+  display: block;
   font-family: 'Poppins', sans-serif;
-  background: url('/assets/guinguette-bg.jpg') no-repeat center center fixed;
-  background-size: cover;
 }
 
 mat-toolbar {
   justify-content: space-between;
-  height: 70px;
-  flex-shrink: 0;
+  height: 64px;
   font-family: 'Playfair Display', serif;
   background: rgba($forest-green, 0.9);
   color: $pale-gold;
   box-shadow: 0 4px 6px rgba($dark-gray, 0.2);
 
   span {
-    font-size: 2rem;
+    font-size: 1.8rem;
     letter-spacing: 1px;
   }
 
@@ -33,38 +28,20 @@ mat-toolbar {
   }
 }
 
-.content-container {
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 40px 20px;
-  overflow-y: auto;
-  background: rgba($background-color, 0.8);
-}
-
-.event-list {
-  width: 90%;
-  max-width: 600px;
-  background-color: rgba(white, 0.9);
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba($dark-gray, 0.2);
-  overflow: hidden;
-  transform: rotate(-2deg);
-  transition: transform 0.3s ease;
-
-  &:hover {
-    transform: rotate(0deg) scale(1.02);
-  }
+.event-content {
+  background-color: white;
+  min-width: 400px; // Largeur minimale
+  max-width: 600px; // Largeur maximale
+  padding-bottom: 20px;
 }
 
 h2 {
   font-family: 'Playfair Display', serif;
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   color: $pale-gold;
   background: $forest-green;
   margin: 0;
-  padding: 20px;
+  padding: 15px 20px;
   text-align: center;
   text-shadow: 2px 2px 4px rgba($dark-gray, 0.3);
 }
@@ -76,7 +53,7 @@ ul {
 }
 
 .event-item {
-  padding: 20px;
+  padding: 15px 20px;
   border-bottom: 2px dashed $pale-gold;
   transition: all 0.3s ease;
   position: relative;
@@ -112,7 +89,7 @@ ul {
   color: $rusty-orange;
   font-weight: 700;
   font-size: 1.2rem;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   text-transform: uppercase;
 }
 
@@ -120,10 +97,11 @@ ul {
   color: $dark-gray;
   font-size: 1.1rem;
   line-height: 1.5;
-  padding-left: 20px;
+  padding-left: 15px;
   border-left: 4px solid $pale-gold;
 }
 
+// Animation de scintillement
 @keyframes shimmer {
   0% {background-position: -1000px 0;}
   100% {background-position: 1000px 0;}
@@ -141,26 +119,20 @@ ul {
   transform: translateX(-100%);
 }
 
-@media screen and (max-width: 600px) {
-  .event-list {
-    width: 95%;
+@media screen and (max-width: 480px) {
+  .event-content {
+    min-width: 300px;
   }
-
+  
   h2 {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 
   .event-date {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 
   .event-description {
-    font-size: 1rem;
-  }
-}
-
-@media screen and (max-width: 400px) {
-  mat-toolbar span {
-    font-size: 1.5rem;
+    font-size: 0.9rem;
   }
 }
