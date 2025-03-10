@@ -39,6 +39,8 @@ mat-toolbar {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  max-width: 800px;
+  min-width: 200px;
 }
 
 .title {
@@ -114,9 +116,6 @@ p {
 }
 
 @media screen and (max-width: 480px) {
-  .manjocarn-content {
-    min-width: 300px;
-  }
   
   .title {
     font-size: 1.8rem;
