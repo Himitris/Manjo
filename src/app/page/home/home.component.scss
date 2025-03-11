@@ -98,8 +98,6 @@ $background-color: #f8f5f0;
   width: 100%;
   z-index: 2;
   padding: clamp(0.5rem, 2vw, 1rem);
-  overflow-y: auto;
-  max-height: 60vh;
 }
 
 .nav-item {
