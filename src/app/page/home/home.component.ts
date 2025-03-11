@@ -59,7 +59,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     public dialog: MatDialog,
     @Inject(PLATFORM_ID) private platformId: Object
-  ) {}
+  ) { }
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
@@ -85,10 +85,41 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private initAnimations(): void {
-    this.timeline = gsap.timeline({ defaults: { ease: 'power2.out' } });
+    // Vérifier si l'utilisateur préfère les mouvements réduits
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    this.animateTitle();
-    this.animateNavItems();
+    // Base timeline avec des paramètres optimisés
+    this.timeline = gsap.timeline({
+      defaults: {
+        ease: 'power2.out',
+        // Utiliser des valeurs CSS transformées pour améliorer les performances
+        force3D: true,
+        // Réduire la qualité des animations sur les appareils à faibles performances
+        overwrite: 'auto'
+      }
+    });
+
+    // Animations simplifiées si l'utilisateur préfère moins d'animations
+    if (prefersReducedMotion) {
+      this.animateWithReducedMotion();
+    } else {
+      this.animateTitle();
+      this.animateNavItems();
+    }
+  }
+
+  private animateWithReducedMotion(): void {
+    // Animation minimale pour les utilisateurs préférant les mouvements réduits
+    const titleElement = document.querySelector('.rustic-title');
+    const navItems = document.querySelectorAll('.nav-item');
+
+    if (titleElement) {
+      gsap.set(titleElement, { opacity: 1, y: 0 });
+    }
+
+    if (navItems.length > 0) {
+      gsap.set(navItems, { opacity: 1, y: 0 });
+    }
   }
 
   private animateTitle(): void {

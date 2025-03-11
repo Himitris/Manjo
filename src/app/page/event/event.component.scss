@@ -6,8 +6,11 @@ $peach: #F0BE86;
 $background-color: #F8F5F0;
 
 :host {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   font-family: 'Poppins', sans-serif;
+  background-color: $background-color;
 }
 
 mat-toolbar {
@@ -29,6 +32,8 @@ mat-toolbar {
 }
 
 .event-content {
+  flex-grow: 1;
+  padding: 20px;
   background-color: white;
   min-width: 400px; // Largeur minimale
   max-width: 600px; // Largeur maximale

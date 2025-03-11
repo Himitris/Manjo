@@ -25,7 +25,7 @@
             <div class="photo-gallery">
                 <ng-container *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]">
                     <div class="photo-container" (click)="openFullscreen($event)">
-                        <img [src]="'../assets/photo/' + i + '.jpg'" [alt]="'Manjocarn ' + i">
+                        <img [src]="'../assets/photo/' + i + '.jpg'" [alt]="'Photo de Manjocarn ' + i" loading="lazy">
                     </div>
                 </ng-container>
             </div>
