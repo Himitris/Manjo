@@ -1,9 +1,4 @@
-$dark-gray: #6A645A;
-$pale-gold: #E3CD8B;
-$forest-green: #5D7052;
-$rusty-orange: #C18845;
-$peach: #F0BE86;
-$background-color: #F8F5F0; // Un blanc cassé léger pour le fond
+@import '../../../variables';
 
 :host {
   font-family: 'Poppins', sans-serif;
