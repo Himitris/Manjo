@@ -8,7 +8,9 @@ $background-color: #F8F5F0;
 :host {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  // Remplacer la hauteur fixe par auto
+  height: auto;
+  min-height: 300px;
   font-family: 'Poppins', sans-serif;
   background-color: $background-color;
 }

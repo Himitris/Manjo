@@ -9,7 +9,7 @@ $background-color: #F8F5F0; // Un blanc cassé léger pour le fond
   font-family: 'Poppins', sans-serif;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100vh; // Gardons cette hauteur pour ce composant spécifique
   overflow: hidden;
   background-color: $background-color;
 }

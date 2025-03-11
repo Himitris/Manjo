@@ -145,8 +145,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
   openDialog(item: any) {
-    this.dialog.open(item.component, {
-      width: 'auto',
+    // Configuration par défaut pour toutes les modales
+    const dialogRef = this.dialog.open(item.component, {
+      width: item.title === 'La carte' ? '95vw' : 'auto',
       height: 'auto',
       maxWidth: '95vw',
       maxHeight: '90vh',

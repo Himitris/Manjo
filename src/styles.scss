@@ -63,6 +63,7 @@ mat-dialog-container {
   border-radius: 20px !important;
 }
 
+
 .adaptive-modal {
   .mat-mdc-dialog-container {
     padding: 0 !important;
@@ -77,12 +78,9 @@ mat-dialog-container {
     padding: 0 !important;
     margin: 0 !important;
     display: block !important;
-    overflow: auto !important;
   }
 }
 
-// Pour assurer que les modales s'adaptent à leur contenu
-mat-dialog-container {
-  display: flex !important;
-  flex-direction: column !important;
+.cdk-overlay-pane {
+  max-height: 95vh !important;
 }

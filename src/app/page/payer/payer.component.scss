@@ -8,7 +8,9 @@ $background-color: #F8F5F0;
 :host {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  // Remplacer la hauteur fixe par auto
+  height: auto;
+  min-height: 300px;
   font-family: 'Poppins', sans-serif;
   background-color: $background-color;
 }
@@ -35,13 +37,12 @@ mat-toolbar {
 .payer-content {
   flex-grow: 1;
   padding: 20px;
-  padding-bottom: 60px;
+  padding-bottom: 30px; 
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 20px;
   max-width: 800px;
-  max-height: 800px;
   min-width: 200px;
 }
 
