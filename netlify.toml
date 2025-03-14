@@ -10,7 +10,7 @@
 
 [build]
   command = "npm run build"
-  publish = "dist/manjocarn"
+  publish = "dist/manjocarn/browser"
 
 [build.environment]
   # Variables publiques sécurisées - Ne mettez PAS votre token ici
