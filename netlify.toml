@@ -7,3 +7,11 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+[build]
+  command = "npm run build"
+  publish = "dist/manjocarn"
+
+[build.environment]
+  # Variables publiques sécurisées - Ne mettez PAS votre token ici
+  NODE_VERSION = "16"
