@@ -1,0 +1,117 @@
+<mat-toolbar color="primary">
+    <span class="toolbar-title">Notre galerie Instagram</span>
+    <button mat-icon-button mat-dialog-close aria-label="Close dialog">
+        <mat-icon>close</mat-icon>
+    </button>
+</mat-toolbar>
+
+<div class="instagram-container">
+    <div class="page-header">
+        <h2 class="fade-in">Nos moments à Manjocarn</h2>
+        <p class="fade-in">Découvrez l'ambiance de la guinguette à travers nos publications</p>
+    </div>
+
+    <!-- Vidéo Vedette -->
+    <div *ngIf="!loading && !error && featuredPost" class="featured-post fade-in">
+        <h3 class="featured-title">Vidéo à la une</h3>
+        <div class="featured-content">
+            <div class="featured-media" [ngClass]="{'portrait-video': featuredPostIsPortrait}">
+                <div class="video-wrapper">
+                    <video controls preload="metadata" poster="{{featuredPost.thumbnail_url}}" #featuredVideo
+                        (loadedmetadata)="checkVideoOrientation($event, true)">
+                        <source [src]="featuredPost.media_url" type="video/mp4">
+                        Votre navigateur ne supporte pas la lecture de vidéos.
+                    </video>
+                    <div class="video-overlay" (click)="playVideo($event)">
+                        <mat-icon class="play-icon">play_circle_filled</mat-icon>
+                    </div>
+                </div>
+            </div>
+            <div class="featured-info" *ngIf="featuredPost && (featuredPost.caption || featuredPost.timestamp)">
+                <p class="post-date" *ngIf="featuredPost.timestamp">{{ featuredPost.timestamp | date:'dd MMM yyyy' }}</p>
+                <p *ngIf="featuredPost.caption" class="post-caption">
+                  {{ featuredPost.caption }}
+                </p>
+                <a [href]="featuredPost.permalink" target="_blank" class="insta-link">
+                  <mat-icon>launch</mat-icon>
+                  <span>Voir sur Instagram</span>
+                </a>
+              </div>
+        </div>
+    </div>
+
+    <div *ngIf="loading" class="loading-container fade-in">
+        <mat-spinner diameter="50"></mat-spinner>
+        <p>Chargement de nos publications Instagram...</p>
+    </div>
+
+    <div *ngIf="error" class="error-container fade-in">
+        <mat-icon>error</mat-icon>
+        <p>{{ error }}</p>
+    </div>
+
+    <!-- Reste des publications -->
+    <div *ngIf="!loading && !error" class="regular-posts-section">
+        <h3 class="section-title">Toutes nos publications</h3>
+        <div class="instagram-grid">
+            <div *ngFor="let post of regularPosts; let i = index" class="instagram-post" [ngClass]="{'fade-in': true, 'portrait-post': isPortraitVideo(i)}"
+                [style.animation-delay]="i * 0.1 + 's'">
+
+                <!-- Conteneur du média -->
+                <div class="media-container" [ngClass]="{'portrait-video': isPortraitVideo(i)}">
+                    <!-- Image -->
+                    <img *ngIf="post.media_type === 'IMAGE'" [src]="post.media_url"
+                        [alt]="post.caption || 'Photo Instagram'" loading="lazy"
+                        (click)="openInstaLink(post.permalink)">
+
+                    <!-- Vidéo  -->
+                    <div *ngIf="post.media_type === 'VIDEO'" class="video-wrapper">
+                        <video controls preload="metadata" poster="{{post.thumbnail_url}}" #videoElement
+                            (loadedmetadata)="checkVideoOrientation($event, false, i)">
+                            <source [src]="post.media_url" type="video/mp4">
+                            Votre navigateur ne supporte pas la lecture de vidéos.
+                        </video>
+                        <div class="video-overlay" (click)="playVideo($event)">
+                            <mat-icon class="play-icon">play_circle_filled</mat-icon>
+                        </div>
+                    </div>
+
+                    <!-- Marqueur pour albums photos -->
+                    <div *ngIf="post.media_type === 'CAROUSEL_ALBUM'" class="album-badge">
+                        <mat-icon>collections</mat-icon>
+                    </div>
+                </div>
+
+                <!-- Pied de post avec description et bouton -->
+                <div class="post-footer">
+                    <div class="post-info">
+                        <p class="post-date">{{ post.timestamp | date:'dd MMM yyyy' }}</p>
+                        
+                        <!-- Description avec toggle -->
+                        <p class="post-caption" [class.expanded]="expandedCaptions[i]">
+                          <span *ngIf="!expandedCaptions[i] && post.caption && post.caption.length > 120">
+                            {{ post.caption | slice:0:120 }}...
+                            <span class="read-more" (click)="expandCaption(i)">Lire plus</span>
+                          </span>
+                          <span *ngIf="expandedCaptions[i] || (post.caption && post.caption.length <= 120)">
+                            {{ post.caption }}
+                            <span *ngIf="expandedCaptions[i]" class="read-less" (click)="collapseCaption(i)">Réduire</span>
+                          </span>
+                        </p>
+                      </div>
+                    <a [href]="post.permalink" target="_blank" class="insta-link">
+                        <mat-icon>launch</mat-icon>
+                        <span>Voir sur Instagram</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="!loading && !error" class="instagram-footer fade-in">
+        <a href="https://www.instagram.com/manjocarn" target="_blank" class="follow-btn">
+            <mat-icon>person_add</mat-icon>
+            Suivez-nous sur Instagram
+        </a>
+    </div>
+</div>

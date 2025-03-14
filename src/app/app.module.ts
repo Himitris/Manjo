@@ -20,6 +20,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { ManjocarnComponent } from './page/manjocarn/manjocarn.component';
 import { CarteComponent } from './page/carte/carte.component';
 import { HttpClientModule } from '@angular/common/http';
+import { InstagramComponent } from './page/instagram/instagram.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -33,6 +36,7 @@ import { HttpClientModule } from '@angular/common/http';
     ActiviteComponent,
     ManjocarnComponent,
     CarteComponent,
+    InstagramComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,6 +48,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatListModule,
     MatIconModule,
     HttpClientModule,
+    MatProgressSpinnerModule,
+    BrowserAnimationsModule
   ],
   providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent],

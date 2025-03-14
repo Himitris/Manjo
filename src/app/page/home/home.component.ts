@@ -16,6 +16,7 @@ import { CarteComponent } from '../carte/carte.component';
 import { PayerComponent } from '../payer/payer.component';
 import { ActiviteComponent } from '../activite/activite.component';
 import { ManjocarnComponent } from '../manjocarn/manjocarn.component';
+import { InstagramComponent } from '../instagram/instagram.component';
 
 @Component({
   selector: 'app-home',
@@ -51,6 +52,11 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       icon: '/assets/icon/3.png',
       title: 'Activités',
       component: ActiviteComponent,
+    },
+    {
+      icon: '/assets/icon/instagram.png',
+      title: 'Instagram',
+      component: InstagramComponent
     },
   ];
 

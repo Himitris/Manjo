@@ -1,0 +1,596 @@
+@import '../../../variables';
+
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    background-color: $background-color;
+}
+
+mat-toolbar {
+    justify-content: space-between;
+    height: 70px;
+    flex-shrink: 0;
+    font-family: 'Playfair Display', serif;
+    background: $forest-green;
+    color: $pale-gold;
+    box-shadow: 0 4px 6px rgba($dark-gray, 0.2);
+
+}
+
+.instagram-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 30px;
+    background-image:
+        radial-gradient(circle at 10% 20%, rgba($peach, 0.1) 0%, transparent 25%),
+        radial-gradient(circle at 90% 80%, rgba($pale-gold, 0.1) 0%, transparent 25%);
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 40px;
+
+    h2 {
+        font-family: 'Playfair Display', serif;
+        color: $rusty-orange;
+        font-size: 2.2rem;
+        margin-bottom: 10px;
+        position: relative;
+        display: inline-block;
+
+        &::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: $rusty-orange;
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+    }
+
+    p {
+        color: $dark-gray;
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+}
+
+.loading-container,
+.error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+
+    p {
+        margin-top: 20px;
+        color: $dark-gray;
+        font-size: 1.1rem;
+    }
+
+    mat-icon {
+        font-size: 40px;
+        width: 40px;
+        height: 40px;
+        color: $rusty-orange;
+    }
+}
+
+.instagram-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+    padding-bottom: 30px;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+// Dans instagram.component.scss
+.instagram-post {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba($dark-gray, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 30px rgba($dark-gray, 0.15);
+    }
+
+    &.portrait-post {
+        // Spécifique aux posts avec médias portrait
+        max-width: 350px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.media-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background-color: black; // Noir au lieu de gris clair
+
+    img {
+        width: 100%;
+        display: block;
+        object-fit: contain;
+        transition: transform 0.5s ease;
+        cursor: pointer;
+    }
+
+    &.portrait-video {
+        .video-wrapper {
+
+            // Surcharger la bande noire par défaut
+            video {
+                width: 100%;
+                max-height: none;
+                background: black;
+            }
+
+            .video-overlay {
+
+                // Réduire la taille du bouton play pour les vidéos portrait
+                .play-icon {
+                    font-size: 50px;
+                    height: 50px;
+                    width: 50px;
+                }
+            }
+        }
+    }
+}
+
+.custom-video-controls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+
+    .video-wrapper:hover & {
+        opacity: 1;
+    }
+
+    .control-button {
+        background: none;
+        border: none;
+        color: white;
+        padding: 5px;
+        cursor: pointer;
+
+        mat-icon {
+            font-size: 20px;
+            height: 20px;
+            width: 20px;
+        }
+    }
+
+    .progress-bar {
+        flex: 1;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.3);
+        margin: 0 10px;
+        border-radius: 2px;
+        overflow: hidden;
+        cursor: pointer;
+
+        .progress-fill {
+            height: 100%;
+            background: $pale-gold;
+            width: 0%;
+        }
+    }
+}
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+
+    video {
+        width: 100%;
+        display: block;
+        background-color: black; // Fond noir pour les barres letterbox/pillarbox
+    }
+
+    .video-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background 0.3s ease;
+
+        &:hover {
+            background: rgba(0, 0, 0, 0.2);
+
+            .play-icon {
+                transform: scale(1.2);
+            }
+        }
+
+        .play-icon {
+            color: white;
+            font-size: 60px;
+            height: 60px;
+            width: 60px;
+            transition: transform 0.3s ease;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        }
+    }
+}
+
+.album-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba($forest-green, 0.8);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+
+    mat-icon {
+        color: white;
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.post-footer {
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.post-info {
+    .post-date {
+        font-size: 0.85rem;
+        color: rgba($dark-gray, 0.7);
+        margin-bottom: 8px;
+    }
+
+    .post-caption {
+        font-size: 0.95rem;
+        color: $dark-gray;
+        line-height: 1.5;
+        margin: 0;
+        transition: max-height 0.3s ease;
+        
+        &.expanded {
+          // Assez d'espace pour afficher tout le texte
+          max-height: 1000px;
+        }
+        
+        .read-more, .read-less {
+          display: inline-block;
+          color: $rusty-orange;
+          margin-left: 5px;
+          font-weight: 600;
+          cursor: pointer;
+          
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+
+    .post-caption-expanded {
+        font-size: 0.95rem;
+        color: $dark-gray;
+        line-height: 1.5;
+        margin: 10px 0 0;
+        padding-top: 10px;
+        border-top: 1px dashed rgba($dark-gray, 0.2);
+
+        .read-less {
+            display: inline-block;
+            color: $rusty-orange;
+            margin-left: 5px;
+            font-weight: 600;
+            cursor: pointer;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+.insta-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: $forest-green;
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    align-self: flex-end;
+
+    &:hover {
+        background: darken($forest-green, 5%);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba($dark-gray, 0.2);
+    }
+
+    mat-icon {
+        font-size: 16px;
+        height: 16px;
+        width: 16px;
+    }
+}
+
+.instagram-footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 20px 0 30px;
+
+    .follow-btn {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: $rusty-orange;
+        color: white;
+        text-decoration: none;
+        font-size: 1.1rem;
+        border-radius: 30px;
+        padding: 10px 25px;
+        transition: all 0.3s ease;
+
+        &:hover {
+            background: darken($rusty-orange, 10%);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba($dark-gray, 0.3);
+        }
+    }
+}
+
+// Animations
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.6s ease forwards;
+    opacity: 0;
+}
+
+// Titre de la barre d'outils adaptative
+.toolbar-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+// Section vidéo vedette
+.featured-post {
+    margin-bottom: 50px;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba($dark-gray, 0.15);
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.featured-title {
+    background: $forest-green;
+    color: $pale-gold;
+    padding: 15px 25px;
+    margin: 0;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    letter-spacing: 1px;
+}
+
+.featured-content {
+    display: flex;
+    flex-direction: column;
+
+    @media screen and (min-width: 992px) {
+        flex-direction: row;
+        align-items: flex-start; // Aligner les éléments en haut
+    }
+}
+
+.featured-media {
+    flex: 1;
+    position: relative;
+
+    @media screen and (min-width: 992px) {
+        flex: 2; // Prend plus d'espace quand il n'y a pas de commentaire
+        max-width: none; // Supprime la restriction de 60%
+    }
+
+    &.portrait-video {
+        align-self: center;
+        max-width: 500px; // Largeur max pour les vidéos portrait
+
+        @media screen and (min-width: 992px) {
+            flex: 1;
+        }
+    }
+
+    .video-wrapper {
+        position: relative;
+        width: 100%;
+
+        video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+    }
+}
+
+.featured-info {
+    padding: 25px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    // S'il n'y a pas de contenu, minimiser l'espace
+    &:empty {
+        display: none;
+    }
+
+    // Si uniquement la date est présente
+    &:only-child {
+        padding: 15px;
+    }
+}
+
+.section-title {
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    color: $dark-gray;
+    font-size: 1.5rem;
+    margin: 0 0 30px;
+    position: relative;
+
+    &::after {
+        content: '';
+        display: block;
+        width: 40px;
+        height: 2px;
+        background: $rusty-orange;
+        margin: 12px auto 0;
+    }
+}
+
+.regular-posts-section {
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+// Media Queries supplémentaires
+@media screen and (max-width: 768px) {
+
+    .featured-title {
+        font-size: 1.4rem;
+        padding: 12px 20px;
+    }
+
+    .featured-info {
+        padding: 15px;
+
+        .post-caption {
+            font-size: 0.95rem;
+            max-height: 200px;
+        }
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .toolbar-title {
+        font-size: 1.2rem;
+    }
+
+    .featured-title,
+    .section-title {
+        font-size: 1.2rem;
+    }
+
+    .featured-media {
+        min-height: 250px;
+    }
+}
+
+@media screen and (max-width: 330px) {
+    .toolbar-title {
+        font-size: 0.9rem;
+    }
+}
+
+// Media Queries
+@media screen and (min-width: 1200px) {
+    .instagram-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+    .instagram-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .instagram-grid {
+        grid-template-columns: repeat(1, 1fr);
+        max-width: 500px;
+        margin: 0 auto;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .instagram-container {
+        padding: 15px;
+    }
+
+    .page-header h2 {
+        font-size: 1.8rem;
+    }
+
+    .video-overlay .play-icon {
+        font-size: 50px;
+        height: 50px;
+        width: 50px;
+    }
+}
+
+// Pour la réduction de mouvement
+@media (prefers-reduced-motion: reduce) {
+
+    .instagram-post,
+    .instagram-post:hover {
+        transform: none;
+        transition: none;
+    }
+
+    img:hover {
+        transform: none;
+    }
+
+    .fade-in {
+        animation: none;
+        opacity: 1;
+    }
+}
