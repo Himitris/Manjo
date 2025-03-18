@@ -8,19 +8,33 @@ if (!fs.existsSync(envDir)) {
   fs.mkdirSync(envDir, { recursive: true });
 }
 
-// Récupérer le token depuis les variables d'environnement
+// Récupérer les variables depuis les variables d'environnement
 const instagramToken = process.env.INSTAGRAM_TOKEN || '';
+const firebaseApiKey = process.env.FIREBASE_API_KEY || '';
+const firebaseAuthDomain = process.env.FIREBASE_AUTH_DOMAIN || '';
+const firebaseProjectId = process.env.FIREBASE_PROJECT_ID || '';
+const firebaseStorageBucket = process.env.FIREBASE_STORAGE_BUCKET || '';
+const firebaseMessagingSenderId = process.env.FIREBASE_MESSAGING_SENDER_ID || '';
+const firebaseAppId = process.env.FIREBASE_APP_ID || '';
 
 // Contenu du fichier d'environnement
 const envFileContent = `
 export const environment = {
   production: true,
-  instagramToken: '${instagramToken}'
+  instagramToken: '${instagramToken}',
+  firebase: {
+    apiKey: '${firebaseApiKey}',
+    authDomain: '${firebaseAuthDomain}',
+    projectId: '${firebaseProjectId}',
+    storageBucket: '${firebaseStorageBucket}',
+    messagingSenderId: '${firebaseMessagingSenderId}',
+    appId: '${firebaseAppId}'
+  }
 };
 `;
 
 // Écrire les fichiers d'environnement
 fs.writeFileSync(path.join(envDir, 'environment.ts'), envFileContent);
-fs.writeFileSync(path.join(envDir, 'environment.prod.ts'), envFileContent);
+fs.writeFileSync(path.join(envDir, 'environment.development.ts'), envFileContent.replace('production: true', 'production: false'));
 
 console.log('Environment files generated successfully');

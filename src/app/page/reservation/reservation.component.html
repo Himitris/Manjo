@@ -1,0 +1,241 @@
+<div class="reservation-container">
+    <mat-toolbar color="primary" class="reservation-header">
+        <button mat-icon-button (click)="retourAccueil()">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <span>Réservation de Pique-nique</span>
+    </mat-toolbar>
+
+    <div class="reservation-content">
+        <!-- Affichage des étapes -->
+        <mat-horizontal-stepper linear #stepper class="mat-elevation-z4">
+
+            <!-- Étape 1: Choix du mode de pique-nique -->
+            <mat-step [stepControl]="modeFormGroup">
+                <form [formGroup]="modeFormGroup">
+                    <ng-template matStepLabel>Mode de pique-nique</ng-template>
+                    <h2>Choisissez votre mode de pique-nique</h2>
+                    <div class="mode-selection">
+                        <mat-card class="mode-card" [class.selected]="modeFormGroup.get('mode')?.value === 'acheter'"
+                            (click)="selectMode('acheter')">
+                            <mat-card-header>
+                                <mat-icon mat-card-avatar>shopping_basket</mat-icon>
+                                <mat-card-title>Acheter un pique-nique</mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <p>Nous préparons un délicieux pique-nique pour vous et vos proches.</p>
+                            </mat-card-content>
+                        </mat-card>
+
+                        <mat-card class="mode-card" [class.selected]="modeFormGroup.get('mode')?.value === 'garder'"
+                            (click)="selectMode('garder')">
+                            <mat-card-header>
+                                <mat-icon mat-card-avatar>eco</mat-icon>
+                                <mat-card-title>Faire garder mon pique-nique</mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <p>Apportez votre propre pique-nique, nous vous gardons une place au frais.</p>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                    <div class="step-actions">
+                        <button mat-button matStepperNext [disabled]="!modeFormGroup.valid">Continuer</button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <!-- Étape 2: Choix de la date et du créneau -->
+            <mat-step [stepControl]="dateCreneauFormGroup">
+                <form [formGroup]="dateCreneauFormGroup">
+                    <ng-template matStepLabel>Date et créneau</ng-template>
+                    <h2>Sélectionnez une date et un créneau horaire</h2>
+
+                    <div class="date-time-container">
+                        <!-- Sélection de la date -->
+                        <mat-form-field appearance="fill" class="full-width">
+                            <mat-label>Date du pique-nique</mat-label>
+                            <input matInput [matDatepicker]="picker" formControlName="date" [min]="minDate"
+                                (dateChange)="onDateSelected($event)">
+                            <mat-hint>Réservation possible uniquement à partir de demain</mat-hint>
+                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error *ngIf="dateCreneauFormGroup.get('date')?.hasError('required')">
+                                La date est obligatoire
+                            </mat-error>
+                        </mat-form-field>
+
+                        <!-- Sélection du créneau horaire (uniquement pour "Acheter un pique-nique") -->
+                        <mat-form-field *ngIf="isModePiqueniqueAcheter()" appearance="fill" class="full-width">
+                            <mat-label>Créneau horaire</mat-label>
+                            <mat-select formControlName="creneau" [disabled]="!dateEstSelectionnee">
+                                <mat-option *ngIf="!dateEstSelectionnee" [value]="null">Sélectionnez d'abord une
+                                    date</mat-option>
+                                <mat-option *ngFor="let creneau of creneauxDisponibles" [value]="creneau"
+                                    [disabled]="creneau.nbPlacesDisponibles <= 0">
+                                    {{ creneau.heure }} - {{ creneau.nbPlacesDisponibles }} place(s) disponible(s)
+                                </mat-option>
+                            </mat-select>
+                            <mat-hint *ngIf="!dateEstSelectionnee">Veuillez d'abord sélectionner une date</mat-hint>
+                            <mat-error *ngIf="dateCreneauFormGroup.get('creneau')?.hasError('required')">
+                                Le créneau est obligatoire
+                            </mat-error>
+                        </mat-form-field>
+
+                        <!-- Nombre de personnes -->
+                        <mat-form-field appearance="fill" class="full-width">
+                            <mat-label>Nombre de personnes</mat-label>
+                            <input matInput type="number" min="1" max="20" formControlName="nbPersonnes">
+                            <mat-hint>Maximum 20 personnes par réservation</mat-hint>
+                            <mat-error *ngIf="dateCreneauFormGroup.get('nbPersonnes')?.hasError('required')">
+                                Le nombre de personnes est obligatoire
+                            </mat-error>
+                            <mat-error *ngIf="dateCreneauFormGroup.get('nbPersonnes')?.hasError('min')">
+                                Le nombre de personnes doit être au moins 1
+                            </mat-error>
+                            <mat-error *ngIf="dateCreneauFormGroup.get('nbPersonnes')?.hasError('max')">
+                                Le nombre de personnes ne peut pas dépasser 20
+                            </mat-error>
+                        </mat-form-field>
+
+                        <!-- Message d'erreur pour la disponibilité -->
+                        <div *ngIf="isModePiqueniqueAcheter() && messageErreurPlaces" class="error-message">
+                            <mat-icon>error</mat-icon>
+                            <span>{{ messageErreurPlaces }}</span>
+                        </div>
+                    </div>
+
+                    <div class="step-actions">
+                        <button mat-button matStepperPrevious>Retour</button>
+                        <button mat-button matStepperNext [disabled]="!isDateCreneauFormValid()">Continuer</button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <!-- Étape 3: Informations personnelles -->
+            <mat-step [stepControl]="infosPersonnellesFormGroup">
+                <form [formGroup]="infosPersonnellesFormGroup">
+                    <ng-template matStepLabel>Vos coordonnées</ng-template>
+                    <h2>Vos informations personnelles</h2>
+
+                    <div class="personal-info-container">
+                        <mat-form-field appearance="fill" class="half-width">
+                            <mat-label>Prénom</mat-label>
+                            <input matInput formControlName="prenom">
+                            <mat-error *ngIf="infosPersonnellesFormGroup.get('prenom')?.hasError('required')">
+                                Le prénom est obligatoire
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill" class="half-width">
+                            <mat-label>Nom</mat-label>
+                            <input matInput formControlName="nom">
+                            <mat-error *ngIf="infosPersonnellesFormGroup.get('nom')?.hasError('required')">
+                                Le nom est obligatoire
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill" class="full-width">
+                            <mat-label>Email</mat-label>
+                            <input matInput type="email" formControlName="email">
+                            <mat-error *ngIf="infosPersonnellesFormGroup.get('email')?.hasError('required')">
+                                L'email est obligatoire
+                            </mat-error>
+                            <mat-error *ngIf="infosPersonnellesFormGroup.get('email')?.hasError('email')">
+                                Veuillez saisir un email valide
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill" class="full-width">
+                            <mat-label>Téléphone</mat-label>
+                            <input matInput type="tel" formControlName="telephone">
+                            <mat-error *ngIf="infosPersonnellesFormGroup.get('telephone')?.hasError('required')">
+                                Le téléphone est obligatoire
+                            </mat-error>
+                            <mat-error *ngIf="infosPersonnellesFormGroup.get('telephone')?.hasError('pattern')">
+                                Veuillez saisir un numéro de téléphone valide
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="step-actions">
+                        <button mat-button matStepperPrevious>Retour</button>
+                        <button mat-button matStepperNext
+                            [disabled]="!infosPersonnellesFormGroup.valid">Continuer</button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <!-- Étape 4: Récapitulatif et confirmation -->
+            <mat-step>
+                <ng-template matStepLabel>Récapitulatif</ng-template>
+                <h2>Récapitulatif de votre réservation</h2>
+
+                <mat-card class="recap-card">
+                    <mat-card-content>
+                        <div class="recap-section">
+                            <h3>Mode de pique-nique</h3>
+                            <p>
+                                <strong>{{ modeFormGroup.get('mode')?.value === 'acheter' ? 'Acheter un pique-nique' :
+                                    'Faire garder mon pique-nique' }}</strong>
+                            </p>
+                        </div>
+
+                        <div class="recap-section">
+                            <h3>Date et créneau</h3>
+                            <p>
+                                <strong>Date:</strong> {{ formatDate(dateCreneauFormGroup.get('date')?.value) }}<br>
+                                <strong *ngIf="isModePiqueniqueAcheter()">Horaire:</strong>
+                                <span *ngIf="isModePiqueniqueAcheter()">{{
+                                    dateCreneauFormGroup.get('creneau')?.value?.heure }}</span><br>
+                                <strong>Nombre de personnes:</strong> {{ dateCreneauFormGroup.get('nbPersonnes')?.value
+                                }}
+                            </p>
+                        </div>
+
+                        <div class="recap-section">
+                            <h3>Vos coordonnées</h3>
+                            <p>
+                                <strong>Nom complet:</strong> {{ infosPersonnellesFormGroup.get('prenom')?.value }} {{
+                                infosPersonnellesFormGroup.get('nom')?.value }}<br>
+                                <strong>Email:</strong> {{ infosPersonnellesFormGroup.get('email')?.value }}<br>
+                                <strong>Téléphone:</strong> {{ infosPersonnellesFormGroup.get('telephone')?.value }}
+                            </p>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+
+                <div class="step-actions">
+                    <button mat-button matStepperPrevious>Retour</button>
+                    <button mat-raised-button color="primary" [disabled]="isSubmitting"
+                        (click)="confirmerReservation()">
+                        <mat-spinner *ngIf="isSubmitting" [diameter]="20" class="spinner-in-button"></mat-spinner>
+                        <span *ngIf="!isSubmitting">Confirmer la réservation</span>
+                    </button>
+                </div>
+
+                <!-- Message d'erreur lors de la soumission -->
+                <div *ngIf="messageErreurSoumission" class="error-message submission-error">
+                    <mat-icon>error</mat-icon>
+                    <span [innerHTML]="messageErreurSoumission"></span>
+                </div>
+            </mat-step>
+
+            <!-- Étape 5: Confirmation finale -->
+            <mat-step>
+                <ng-template matStepLabel>Confirmation</ng-template>
+                <div class="confirmation-message">
+                    <mat-icon class="confirmation-icon">check_circle</mat-icon>
+                    <h2>Votre réservation est confirmée!</h2>
+                    <p>Merci d'avoir réservé votre pique-nique chez Manjocarn</p>
+                    <p class="reservation-id">Référence de réservation: <strong>{{ reservationId }}</strong></p>
+                    <p>Nous avons envoyé un email de confirmation à l'adresse indiquée.</p>
+                    <p>À très bientôt !</p>
+
+                    <button mat-raised-button color="primary" (click)="retourAccueil()">
+                        Retour à l'accueil
+                    </button>
+                </div>
+            </mat-step>
+        </mat-horizontal-stepper>
+    </div>
+</div>

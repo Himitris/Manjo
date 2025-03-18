@@ -1,5 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,6 +24,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { InstagramComponent } from './page/instagram/instagram.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReservationComponent } from './page/reservation/reservation.component';
+
+// Modules Material supplémentaires pour la réservation
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -37,6 +47,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ManjocarnComponent,
     CarteComponent,
     InstagramComponent,
+    ReservationComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,7 +60,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatIconModule,
     HttpClientModule,
     MatProgressSpinnerModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    MatStepperModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule
   ],
   providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent],

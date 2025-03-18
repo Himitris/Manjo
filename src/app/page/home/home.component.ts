@@ -9,6 +9,7 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { isPlatformBrowser } from '@angular/common';
 import { gsap } from 'gsap';
+import { Router } from '@angular/router';
 
 import { RestaurantComponent } from '../restaurant/restaurant.component';
 import { EventComponent } from '../event/event.component';
@@ -58,12 +59,19 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       title: 'Instagram',
       component: InstagramComponent
     },
+    {
+      icon: '/assets/icon/calendar.png',  // Assurez-vous d'avoir cette icône dans votre dossier assets
+      title: 'Réservation',
+      type: 'route',   // Nouveau type pour la navigation par route plutôt que modal
+      route: '/reservation'
+    },
   ];
 
   private timeline: gsap.core.Timeline | null = null;
 
   constructor(
     public dialog: MatDialog,
+    private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object
   ) { }
 
@@ -150,16 +158,22 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       );
     }
   }
+  
   openDialog(item: any) {
-    // Configuration par défaut pour toutes les modales
-    const dialogRef = this.dialog.open(item.component, {
-      width: item.title === 'La carte' ? '95vw' : 'auto',
-      height: 'auto',
-      maxWidth: '95vw',
-      maxHeight: '90vh',
-      panelClass: 'adaptive-modal',
-      enterAnimationDuration: '300ms',
-      exitAnimationDuration: '200ms',
-    });
+    if (item.type === 'route') {
+      // Naviguer vers la route
+      this.router.navigate([item.route]);
+    } else {
+      // Configuration par défaut pour toutes les modales
+      const dialogRef = this.dialog.open(item.component, {
+        width: item.title === 'La carte' ? '95vw' : 'auto',
+        height: 'auto',
+        maxWidth: '95vw',
+        maxHeight: '90vh',
+        panelClass: 'adaptive-modal',
+        enterAnimationDuration: '300ms',
+        exitAnimationDuration: '200ms',
+      });
+    }
   }
 }
