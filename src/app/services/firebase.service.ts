@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
-import { 
-  getFirestore, collection, doc, getDocs, addDoc, 
-  query, where, Timestamp, updateDoc, Firestore, 
-  serverTimestamp, setDoc, getDoc
+import {
+  getFirestore, collection, doc, getDocs, addDoc,
+  query, where, updateDoc, Firestore,
+  serverTimestamp
 } from 'firebase/firestore';
-import { BehaviorSubject, Observable, from } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 // Interfaces pour les données de Firestore
@@ -58,12 +57,12 @@ export class FirebaseService {
       const creneauxRef = collection(this.db, 'creneaux');
       const q = query(creneauxRef, where("date", "==", dateSelectionnee));
       const querySnapshot = await getDocs(q);
-      
+
       const creneaux: CreneauDisponible[] = [];
       querySnapshot.forEach((doc) => {
-        creneaux.push({ 
-          id: doc.id, 
-          ...doc.data() as CreneauDisponible 
+        creneaux.push({
+          id: doc.id,
+          ...doc.data() as CreneauDisponible
         });
       });
 
@@ -75,7 +74,7 @@ export class FirebaseService {
 
       // Trier les créneaux par heure
       creneaux.sort((a, b) => a.heure.localeCompare(b.heure));
-      
+
       this._creneauxDisponibles.next(creneaux);
     } catch (error) {
       console.error("Erreur lors de la récupération des créneaux:", error);
@@ -116,19 +115,19 @@ export class FirebaseService {
         // 1. Vérifier si le créneau est disponible
         const creneauxRef = collection(this.db, 'creneaux');
         const q = query(
-          creneauxRef, 
+          creneauxRef,
           where("date", "==", reservation.date),
           where("heure", "==", reservation.heure)
         );
         const querySnapshot = await getDocs(q);
-        
+
         if (querySnapshot.empty) {
           throw new Error("Créneau non disponible");
         }
 
         const creneauDoc = querySnapshot.docs[0];
         const creneauData = creneauDoc.data() as CreneauDisponible;
-        
+
         // Vérifier s'il reste assez de places
         if (creneauData.nbPlacesDisponibles < reservation.nbPersonnes) {
           throw new Error("Plus assez de places disponibles sur ce créneau");
@@ -166,10 +165,10 @@ export class FirebaseService {
   isDateReservable(date: Date): boolean {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    
+
     const tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);
-    
+
     return date >= tomorrow;
   }
 }
