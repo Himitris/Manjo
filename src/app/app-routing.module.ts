@@ -5,7 +5,6 @@ import { ReservationComponent } from './page/reservation/reservation.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'reservation', component: ReservationComponent },
   { path: '**', redirectTo: '/home', pathMatch: 'full' },
 ];
 

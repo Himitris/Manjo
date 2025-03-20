@@ -59,12 +59,12 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       title: 'Instagram',
       component: InstagramComponent
     },
-    {
-      icon: '/assets/icon/calendar.png',  // Assurez-vous d'avoir cette icône dans votre dossier assets
-      title: 'Réservation',
-      type: 'route',   // Nouveau type pour la navigation par route plutôt que modal
-      route: '/reservation'
-    },
+    // {
+    //   icon: '/assets/icon/reservation.png', 
+    //   title: 'Réservation',
+    //   type: 'route',   
+    //   route: '/reservation'
+    // },
   ];
 
   private timeline: gsap.core.Timeline | null = null;
