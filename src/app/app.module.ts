@@ -33,6 +33,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { ConditionsGeneralesComponent } from './page/conditions-generales/conditions-generales.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { MatSelectModule } from '@angular/material/select';
     CarteComponent,
     InstagramComponent,
     ReservationComponent,
+    ConditionsGeneralesComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,7 +69,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSelectModule
+    MatSelectModule,
+    MatIconModule,
   ],
   providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent],

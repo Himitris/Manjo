@@ -10,6 +10,8 @@ if (!fs.existsSync(envDir)) {
 
 // Récupérer les variables depuis les variables d'environnement
 const instagramToken = process.env.INSTAGRAM_TOKEN || '';
+const stripePublicKey = process.env.STRIPE_PUBLIC_KEY || '';
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY || '';
 const firebaseApiKey = process.env.FIREBASE_API_KEY || '';
 const firebaseAuthDomain = process.env.FIREBASE_AUTH_DOMAIN || '';
 const firebaseProjectId = process.env.FIREBASE_PROJECT_ID || '';
@@ -22,6 +24,8 @@ const envFileContent = `
 export const environment = {
   production: true,
   instagramToken: '${instagramToken}',
+  stripePublicKey: '${stripePublicKey}',
+  stripeSecretKey: '${stripeSecretKey}',
   firebase: {
     apiKey: '${firebaseApiKey}',
     authDomain: '${firebaseAuthDomain}',

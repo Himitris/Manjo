@@ -24,6 +24,7 @@
                             </mat-card-header>
                             <mat-card-content>
                                 <p>Nous préparons un délicieux pique-nique pour vous et vos proches.</p>
+                                <p class="price-tag">15€ par personne</p>
                             </mat-card-content>
                         </mat-card>
 
@@ -35,6 +36,7 @@
                             </mat-card-header>
                             <mat-card-content>
                                 <p>Apportez votre propre pique-nique, nous vous gardons une place au frais.</p>
+                                <p class="price-tag">5€ par personne</p>
                             </mat-card-content>
                         </mat-card>
                     </div>
@@ -160,64 +162,101 @@
                     <div class="step-actions">
                         <button mat-button matStepperPrevious>Retour</button>
                         <button mat-button matStepperNext
-                            [disabled]="!infosPersonnellesFormGroup.valid">Continuer</button>
+                            [disabled]="!infosPersonnellesFormGroup.valid || isSubmitting"
+                            (click)="preparerPaiement()">
+                            <mat-spinner *ngIf="isSubmitting" [diameter]="20" class="spinner-in-button"></mat-spinner>
+                            <span *ngIf="!isSubmitting">Continuer vers le paiement</span>
+                        </button>
                     </div>
                 </form>
             </mat-step>
 
-            <!-- Étape 4: Récapitulatif et confirmation -->
-            <mat-step>
-                <ng-template matStepLabel>Récapitulatif</ng-template>
-                <h2>Récapitulatif de votre réservation</h2>
+            <!-- Étape 4: Paiement -->
+            <mat-step [stepControl]="paiementFormGroup">
+                <form [formGroup]="paiementFormGroup">
+                    <ng-template matStepLabel>Paiement</ng-template>
+                    <h2>Paiement de votre réservation</h2>
 
-                <mat-card class="recap-card">
-                    <mat-card-content>
-                        <div class="recap-section">
-                            <h3>Mode de pique-nique</h3>
-                            <p>
-                                <strong>{{ modeFormGroup.get('mode')?.value === 'acheter' ? 'Acheter un pique-nique' :
-                                    'Faire garder mon pique-nique' }}</strong>
-                            </p>
+                    <div class="payment-summary">
+                        <h3>Récapitulatif de la commande</h3>
+                        <div class="payment-details">
+                            <div class="detail-row">
+                                <span class="detail-label">Mode de pique-nique:</span>
+                                <span class="detail-value">
+                                    {{ modeFormGroup.get('mode')?.value === 'acheter' ? 'Acheter un pique-nique' : 'Faire garder mon pique-nique' }}
+                                </span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Date:</span>
+                                <span class="detail-value">{{ formatDate(dateCreneauFormGroup.get('date')?.value) }}</span>
+                            </div>
+                            <div class="detail-row" *ngIf="isModePiqueniqueAcheter() && dateCreneauFormGroup.get('creneau')?.value">
+                                <span class="detail-label">Horaire:</span>
+                                <span class="detail-value">{{ dateCreneauFormGroup.get('creneau')?.value?.heure }}</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Nombre de personnes:</span>
+                                <span class="detail-value">{{ dateCreneauFormGroup.get('nbPersonnes')?.value }}</span>
+                            </div>
+                            <div class="detail-row total-row">
+                                <span class="detail-label">Total à payer:</span>
+                                <span class="detail-value total-price">{{ getMontantFormate() }}</span>
+                            </div>
                         </div>
+                    </div>
 
-                        <div class="recap-section">
-                            <h3>Date et créneau</h3>
-                            <p>
-                                <strong>Date:</strong> {{ formatDate(dateCreneauFormGroup.get('date')?.value) }}<br>
-                                <strong *ngIf="isModePiqueniqueAcheter()">Horaire:</strong>
-                                <span *ngIf="isModePiqueniqueAcheter()">{{
-                                    dateCreneauFormGroup.get('creneau')?.value?.heure }}</span><br>
-                                <strong>Nombre de personnes:</strong> {{ dateCreneauFormGroup.get('nbPersonnes')?.value
-                                }}
-                            </p>
+                    <div class="payment-form">
+                        <h3>Informations de paiement</h3>
+                        
+                        <div class="payment-section">
+                          <p class="secure-payment-note">
+                            <mat-icon class="secure-icon">lock</mat-icon>
+                            Paiement sécurisé par Stripe - Vos données de carte bancaire sont cryptées et sécurisées
+                          </p>
+                          
+                          <!-- Champ pour la carte de crédit -->
+                          <div class="card-section">
+                            <label class="card-label">Carte de crédit</label>
+                            <div id="card-element" #cardElement class="card-element"></div>
+                            <p class="card-hint">Toutes les cartes de crédit et de débit majeures sont acceptées</p>
+                          </div>
+                          
                         </div>
-
-                        <div class="recap-section">
-                            <h3>Vos coordonnées</h3>
-                            <p>
-                                <strong>Nom complet:</strong> {{ infosPersonnellesFormGroup.get('prenom')?.value }} {{
-                                infosPersonnellesFormGroup.get('nom')?.value }}<br>
-                                <strong>Email:</strong> {{ infosPersonnellesFormGroup.get('email')?.value }}<br>
-                                <strong>Téléphone:</strong> {{ infosPersonnellesFormGroup.get('telephone')?.value }}
-                            </p>
+                        
+                        <!-- Acceptation des CGV -->
+                        <div class="terms-container">
+                          <label class="custom-checkbox">
+                            <input type="checkbox" formControlName="acceptationCGV">
+                            <span class="checkmark"></span>
+                            J'accepte les conditions générales de vente et de réservation
+                          </label>
+                          <a href="javascript:void(0)" class="terms-link" (click)="ouvrirConditionsGenerales()">
+                            Lire les conditions
+                          </a>
+                          
+                          <div class="error-message" *ngIf="paiementFormGroup.get('acceptationCGV')?.hasError('required') && paiementFormGroup.get('acceptationCGV')?.touched">
+                            <mat-icon>error</mat-icon>
+                            <span>Vous devez accepter les conditions générales pour continuer</span>
+                          </div>
                         </div>
-                    </mat-card-content>
-                </mat-card>
+                      
+                        <!-- Message d'erreur de paiement -->
+                        <div *ngIf="messageErreurPaiement" class="error-message payment-error">
+                          <mat-icon>error</mat-icon>
+                          <span [innerHTML]="messageErreurPaiement"></span>
+                        </div>
+                      </div>
 
-                <div class="step-actions">
-                    <button mat-button matStepperPrevious>Retour</button>
-                    <button mat-raised-button color="primary" [disabled]="isSubmitting"
-                        (click)="confirmerReservation()">
-                        <mat-spinner *ngIf="isSubmitting" [diameter]="20" class="spinner-in-button"></mat-spinner>
-                        <span *ngIf="!isSubmitting">Confirmer la réservation</span>
-                    </button>
-                </div>
-
-                <!-- Message d'erreur lors de la soumission -->
-                <div *ngIf="messageErreurSoumission" class="error-message submission-error">
-                    <mat-icon>error</mat-icon>
-                    <span [innerHTML]="messageErreurSoumission"></span>
-                </div>
+                    <div class="step-actions">
+                        <button mat-button matStepperPrevious [disabled]="isProcessingPayment">Retour</button>
+                        <button mat-raised-button color="primary" 
+                            [disabled]="paiementFormGroup.invalid || !clientSecret || isProcessingPayment"
+                            (click)="confirmerPaiement()">
+                            <mat-spinner *ngIf="isProcessingPayment" [diameter]="20" class="spinner-in-button"></mat-spinner>
+                            <span *ngIf="!isProcessingPayment">Confirmer et payer {{ getMontantFormate() }}</span>
+                        </button>
+                    </div>
+                </form>
             </mat-step>
 
             <!-- Étape 5: Confirmation finale -->
