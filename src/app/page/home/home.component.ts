@@ -57,13 +57,13 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     {
       icon: '/assets/icon/instagram.png',
       title: 'Instagram',
-      component: InstagramComponent
+      component: InstagramComponent,
     },
     {
-      icon: '/assets/icon/reservation.png',  
+      icon: '/assets/icon/reservation.png',
       title: 'Réservation',
-      type: 'route',   
-      route: '/reservation'
+      type: 'route',
+      route: '/reservation',
     },
   ];
 
@@ -73,7 +73,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     public dialog: MatDialog,
     private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object
-  ) { }
+  ) {}
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
@@ -100,7 +100,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private initAnimations(): void {
     // Vérifier si l'utilisateur préfère les mouvements réduits
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
 
     // Base timeline avec des paramètres optimisés
     this.timeline = gsap.timeline({
@@ -109,8 +111,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         // Utiliser des valeurs CSS transformées pour améliorer les performances
         force3D: true,
         // Réduire la qualité des animations sur les appareils à faibles performances
-        overwrite: 'auto'
-      }
+        overwrite: 'auto',
+      },
     });
 
     // Animations simplifiées si l'utilisateur préfère moins d'animations
@@ -158,7 +160,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       );
     }
   }
-  
+
   openDialog(item: any) {
     if (item.type === 'route') {
       // Naviguer vers la route
