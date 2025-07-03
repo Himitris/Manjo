@@ -83,7 +83,7 @@ export class CarteComponent {
     },
     {
       name: 'Salade 3 fromages',
-      price: '16',
+      price: '16.5',
       description: 'Salade fraîche avec 3 fromage (Chèvre, Roquefort, Emmental)',
       type: 'Plat',
     },
@@ -131,7 +131,7 @@ export class CarteComponent {
     },
     {
       name: 'Maxi Confit',
-      price: '35',
+      price: '32',
       description: 'Salade composé, frite et confit en grosse portion',
       type: 'Plat',
     },
