@@ -58,15 +58,9 @@ export class CarteComponent {
       type: 'Plat',
     },
     {
-      name: 'Tartare',
-      price: '20',
-      description: 'Tartare de bœuf assaisonné, servi avec des frites maison',
-      type: 'Plat',
-    },
-    {
       name: 'Cassoulet',
-      price: '17.5',
-      description: 'Plat traditionnel du Sud-Ouest avec haricots et saucisse',
+      price: '24',
+      description: 'Cassoulet de porc noir Gascon',
       type: 'Plat',
     },
     {
@@ -89,7 +83,7 @@ export class CarteComponent {
     },
     {
       name: 'Salade Gésiers',
-      price: '18',
+      price: '18.50',
       description: 'Salade végétarienne colorée avec des légumes frais',
       type: 'Plat',
     },
